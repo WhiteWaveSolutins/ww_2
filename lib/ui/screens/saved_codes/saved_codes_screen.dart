@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -49,7 +50,13 @@ class _SavedCodesScreenState extends State<SavedCodesScreen> {
       body: StoreConnector<AppState, LocalCodeListState>(
         converter: (store) => store.state.savedCodeListState,
         builder: (context, state) {
-          if (state.isLoading) return const Center(child: CircularProgressIndicator());
+          if (state.isLoading) {
+            return const Center(
+              child: CupertinoActivityIndicator(
+                color: Colors.white,
+              ),
+            );
+          }
           if (state.isError) return Center(child: Text(state.errorMessage));
           var showCodes = <LocalBarcode>[];
           if (selectedType == null) {

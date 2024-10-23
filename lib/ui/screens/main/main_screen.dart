@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
-import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/images.dart';
@@ -12,6 +11,7 @@ import 'package:ww_2/ui/resurses/text.dart';
 import 'package:ww_2/ui/screens/settings/settings_screen.dart';
 import 'package:ww_2/ui/state_manager/locale_code/action.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/state.dart';
 import 'package:ww_2/ui/widgets/buttons/button_with_icon.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
 import 'package:ww_2/ui/widgets/image_back.dart';
@@ -33,15 +33,6 @@ class _MainScreenState extends State<MainScreen> {
     _store = StoreProvider.of<AppState>(context, listen: false);
     if (_store.state.savedCodeListState.codes.isEmpty) {
       _store.dispatch(LoadSaveLocalCodeListAction());
-    }
-  }
-
-  void checkSubscribe(Function() tap) {
-    final status = offSubscribe;
-    if (status) {
-      tap();
-    } else {
-      getItService.navigatorService.onGetPremium();
     }
   }
 
@@ -124,22 +115,39 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  _Button(
-                    onTap: () => checkSubscribe(getItService.navigatorService.onGenerate),
-                    title: 'Generate',
-                    icon: AppIcons.generate,
-                    isPay: !offSubscribe,
-                  ),
-                  const SizedBox(width: 4),
-                  _Button(
-                    onTap: () => checkSubscribe(getItService.navigatorService.onCreated),
-                    title: 'Created',
-                    icon: AppIcons.layers,
-                    isPay: !offSubscribe,
-                  ),
-                ],
+              StoreConnector<AppState, SubscriptionState>(
+                converter: (store) => store.state.subscriptionState,
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      _Button(
+                        onTap: () {
+                          if (state.hasPremium) {
+                            getItService.navigatorService.onGenerate();
+                          } else {
+                            getItService.navigatorService.onGetPremium();
+                          }
+                        },
+                        title: 'Generate',
+                        icon: AppIcons.generate,
+                        isPay: !state.hasPremium,
+                      ),
+                      const SizedBox(width: 4),
+                      _Button(
+                        onTap: () {
+                          if (state.hasPremium) {
+                            getItService.navigatorService.onCreated();
+                          } else {
+                            getItService.navigatorService.onGetPremium();
+                          }
+                        },
+                        title: 'Created',
+                        icon: AppIcons.layers,
+                        isPay: !state.hasPremium,
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: 40),
               ButtonWithIcon(

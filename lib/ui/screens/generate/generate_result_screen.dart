@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -54,7 +55,13 @@ class _GenerateResultScreenState extends State<GenerateResultScreen> {
         body: StoreConnector<AppState, QrCodeState>(
           converter: (store) => store.state.qrCodeGeneratedState,
           builder: (context, state) {
-            if (state.isLoading) return const Center(child: CircularProgressIndicator());
+            if (state.isLoading) {
+              return const Center(
+                child: CupertinoActivityIndicator(
+                  color: Colors.white,
+                ),
+              );
+            }
             if (state.isError) return Center(child: Text(state.errorMessage));
             return ListView(
               padding: const EdgeInsets.all(16),

@@ -52,7 +52,13 @@ class _HistoryCodesScreenState extends State<HistoryCodesScreen> {
       body: StoreConnector<AppState, LocalCodeListState>(
         converter: (store) => store.state.historyCodeListState,
         builder: (context, state) {
-          if (state.isLoading) return const Center(child: CircularProgressIndicator());
+          if (state.isLoading) {
+            return const Center(
+              child: CupertinoActivityIndicator(
+                color: Colors.white,
+              ),
+            );
+          }
           if (state.isError) return Center(child: Text(state.errorMessage));
           if (state.codes.isEmpty) return const Center(child: SavedCodesScan());
           return ListView.separated(

@@ -15,34 +15,34 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$LocalCodeListState {
+mixin _$PaywallListState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
-  List<LocalBarcode> get codes => throw _privateConstructorUsedError;
+  List<Paywall> get paywalls => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LocalCodeListStateCopyWith<LocalCodeListState> get copyWith =>
+  $PaywallListStateCopyWith<PaywallListState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocalCodeListStateCopyWith<$Res> {
-  factory $LocalCodeListStateCopyWith(
-          LocalCodeListState value, $Res Function(LocalCodeListState) then) =
-      _$LocalCodeListStateCopyWithImpl<$Res, LocalCodeListState>;
+abstract class $PaywallListStateCopyWith<$Res> {
+  factory $PaywallListStateCopyWith(
+          PaywallListState value, $Res Function(PaywallListState) then) =
+      _$PaywallListStateCopyWithImpl<$Res, PaywallListState>;
   @useResult
   $Res call(
       {bool isLoading,
       bool isError,
       String errorMessage,
-      List<LocalBarcode> codes});
+      List<Paywall> paywalls});
 }
 
 /// @nodoc
-class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
-    implements $LocalCodeListStateCopyWith<$Res> {
-  _$LocalCodeListStateCopyWithImpl(this._value, this._then);
+class _$PaywallListStateCopyWithImpl<$Res, $Val extends PaywallListState>
+    implements $PaywallListStateCopyWith<$Res> {
+  _$PaywallListStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -55,7 +55,7 @@ class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
     Object? isLoading = null,
     Object? isError = null,
     Object? errorMessage = null,
-    Object? codes = null,
+    Object? paywalls = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -70,35 +70,35 @@ class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      codes: null == codes
-          ? _value.codes
-          : codes // ignore: cast_nullable_to_non_nullable
-              as List<LocalBarcode>,
+      paywalls: null == paywalls
+          ? _value.paywalls
+          : paywalls // ignore: cast_nullable_to_non_nullable
+              as List<Paywall>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$LocalCodeListStateImplCopyWith<$Res>
-    implements $LocalCodeListStateCopyWith<$Res> {
-  factory _$$LocalCodeListStateImplCopyWith(_$LocalCodeListStateImpl value,
-          $Res Function(_$LocalCodeListStateImpl) then) =
-      __$$LocalCodeListStateImplCopyWithImpl<$Res>;
+abstract class _$$PaywallListStateImplCopyWith<$Res>
+    implements $PaywallListStateCopyWith<$Res> {
+  factory _$$PaywallListStateImplCopyWith(_$PaywallListStateImpl value,
+          $Res Function(_$PaywallListStateImpl) then) =
+      __$$PaywallListStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {bool isLoading,
       bool isError,
       String errorMessage,
-      List<LocalBarcode> codes});
+      List<Paywall> paywalls});
 }
 
 /// @nodoc
-class __$$LocalCodeListStateImplCopyWithImpl<$Res>
-    extends _$LocalCodeListStateCopyWithImpl<$Res, _$LocalCodeListStateImpl>
-    implements _$$LocalCodeListStateImplCopyWith<$Res> {
-  __$$LocalCodeListStateImplCopyWithImpl(_$LocalCodeListStateImpl _value,
-      $Res Function(_$LocalCodeListStateImpl) _then)
+class __$$PaywallListStateImplCopyWithImpl<$Res>
+    extends _$PaywallListStateCopyWithImpl<$Res, _$PaywallListStateImpl>
+    implements _$$PaywallListStateImplCopyWith<$Res> {
+  __$$PaywallListStateImplCopyWithImpl(_$PaywallListStateImpl _value,
+      $Res Function(_$PaywallListStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -107,9 +107,9 @@ class __$$LocalCodeListStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isError = null,
     Object? errorMessage = null,
-    Object? codes = null,
+    Object? paywalls = null,
   }) {
-    return _then(_$LocalCodeListStateImpl(
+    return _then(_$PaywallListStateImpl(
       null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -122,23 +122,23 @@ class __$$LocalCodeListStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      null == codes
-          ? _value._codes
-          : codes // ignore: cast_nullable_to_non_nullable
-              as List<LocalBarcode>,
+      null == paywalls
+          ? _value._paywalls
+          : paywalls // ignore: cast_nullable_to_non_nullable
+              as List<Paywall>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LocalCodeListStateImpl implements _LocalCodeListState {
-  _$LocalCodeListStateImpl(
+class _$PaywallListStateImpl implements _PaywallListState {
+  _$PaywallListStateImpl(
       [this.isLoading = false,
       this.isError = false,
       this.errorMessage = '',
-      final List<LocalBarcode> codes = const []])
-      : _codes = codes;
+      final List<Paywall> paywalls = const []])
+      : _paywalls = paywalls;
 
   @override
   @JsonKey()
@@ -149,51 +149,51 @@ class _$LocalCodeListStateImpl implements _LocalCodeListState {
   @override
   @JsonKey()
   final String errorMessage;
-  final List<LocalBarcode> _codes;
+  final List<Paywall> _paywalls;
   @override
   @JsonKey()
-  List<LocalBarcode> get codes {
-    if (_codes is EqualUnmodifiableListView) return _codes;
+  List<Paywall> get paywalls {
+    if (_paywalls is EqualUnmodifiableListView) return _paywalls;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_codes);
+    return EqualUnmodifiableListView(_paywalls);
   }
 
   @override
   String toString() {
-    return 'LocalCodeListState(isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage, codes: $codes)';
+    return 'PaywallListState(isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage, paywalls: $paywalls)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalCodeListStateImpl &&
+            other is _$PaywallListStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(other._codes, _codes));
+            const DeepCollectionEquality().equals(other._paywalls, _paywalls));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, isLoading, isError, errorMessage,
-      const DeepCollectionEquality().hash(_codes));
+      const DeepCollectionEquality().hash(_paywalls));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalCodeListStateImplCopyWith<_$LocalCodeListStateImpl> get copyWith =>
-      __$$LocalCodeListStateImplCopyWithImpl<_$LocalCodeListStateImpl>(
+  _$$PaywallListStateImplCopyWith<_$PaywallListStateImpl> get copyWith =>
+      __$$PaywallListStateImplCopyWithImpl<_$PaywallListStateImpl>(
           this, _$identity);
 }
 
-abstract class _LocalCodeListState implements LocalCodeListState {
-  factory _LocalCodeListState(
+abstract class _PaywallListState implements PaywallListState {
+  factory _PaywallListState(
       [final bool isLoading,
       final bool isError,
       final String errorMessage,
-      final List<LocalBarcode> codes]) = _$LocalCodeListStateImpl;
+      final List<Paywall> paywalls]) = _$PaywallListStateImpl;
 
   @override
   bool get isLoading;
@@ -202,9 +202,9 @@ abstract class _LocalCodeListState implements LocalCodeListState {
   @override
   String get errorMessage;
   @override
-  List<LocalBarcode> get codes;
+  List<Paywall> get paywalls;
   @override
   @JsonKey(ignore: true)
-  _$$LocalCodeListStateImplCopyWith<_$LocalCodeListStateImpl> get copyWith =>
+  _$$PaywallListStateImplCopyWith<_$PaywallListStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

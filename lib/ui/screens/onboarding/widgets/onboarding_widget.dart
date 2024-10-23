@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ww_2/data/api/links.dart';
-import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/action.dart';
 import 'package:ww_2/ui/widgets/buttons/main_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -119,8 +122,7 @@ class BottomOnboarding extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
-            mainAxisAlignment:
-                offSubscribe ? MainAxisAlignment.spaceAround : MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
                 onTap: () => launchUrl(
@@ -142,11 +144,47 @@ class BottomOnboarding extends StatelessWidget {
                   style: AppText.text3,
                 ),
               ),
-              if (!offSubscribe)
-                GradientText.primary(
+              GestureDetector(
+                onTap: () {
+                  final store = StoreProvider.of<AppState>(context, listen: false);
+                  store.dispatch(RestoreSubscriptionAction(
+                    onFinish: Navigator.of(context).pop,
+                    onError: (e) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CupertinoAlertDialog(
+                          title: const Text("Some Error"),
+                          content: Text(e),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              onPressed: Navigator.of(context).pop,
+                              isDefaultAction: true,
+                              child: const Text(
+                                "Ok",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    onLoad: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => const Center(
+                          child: CupertinoActivityIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
+                    },
+                  ));
+                },
+                child: GradientText.primary(
                   'Restore',
                   style: AppText.text3,
                 ),
+              ),
             ],
           ),
         ),

@@ -69,7 +69,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         body: StoreConnector<AppState, QrCodeState>(
           converter: (store) => store.state.qrCodeGeneratedState,
           builder: (context, state) {
-            if (state.isLoading) return const Center(child: CircularProgressIndicator());
+            if (state.isLoading) {
+              return const Center(
+                child: CupertinoActivityIndicator(
+                  color: Colors.white,
+                ),
+              );
+            }
 
             if (state.isError) return Center(child: Text(state.errorMessage));
             return ListView(
@@ -120,15 +126,14 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   children: [
                     Expanded(
                       child: SimpleButton(
-                        onTap: () =>
-                            Share.shareXFiles(
-                              [
-                                XFile.fromData(
-                                  state.code!.image,
-                                  mimeType: 'image/png',
-                                ),
-                              ],
+                        onTap: () => Share.shareXFiles(
+                          [
+                            XFile.fromData(
+                              state.code!.image,
+                              mimeType: 'image/png',
                             ),
+                          ],
+                        ),
                         title: 'Share',
                         icon: AppIcons.share,
                       ),
@@ -138,10 +143,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                       child: SimpleButton(
                         onTap: isCustomized
                             ? () {
-                          getItService.qrCodeUseCase.updateSave(state.code!);
-                          getItService.navigatorService.onFirst();
-                          getItService.navigatorService.onCreated();
-                        }
+                                getItService.qrCodeUseCase.updateSave(state.code!);
+                                getItService.navigatorService.onFirst();
+                                getItService.navigatorService.onCreated();
+                              }
                             : null,
                         title: 'Save',
                         icon: AppIcons.save,

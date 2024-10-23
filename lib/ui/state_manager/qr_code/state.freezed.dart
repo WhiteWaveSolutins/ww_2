@@ -21,9 +21,7 @@ mixin _$QrCodeListState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<QrCodeGenerate> get codes => throw _privateConstructorUsedError;
 
-  /// Create a copy of QrCodeListState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $QrCodeListStateCopyWith<QrCodeListState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,8 +49,6 @@ class _$QrCodeListStateCopyWithImpl<$Res, $Val extends QrCodeListState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of QrCodeListState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,8 +101,6 @@ class __$$QrCodeListStateImplCopyWithImpl<$Res>
       _$QrCodeListStateImpl _value, $Res Function(_$QrCodeListStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of QrCodeListState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -186,9 +180,7 @@ class _$QrCodeListStateImpl implements _QrCodeListState {
   int get hashCode => Object.hash(runtimeType, isLoading, isError, errorMessage,
       const DeepCollectionEquality().hash(_codes));
 
-  /// Create a copy of QrCodeListState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$QrCodeListStateImplCopyWith<_$QrCodeListStateImpl> get copyWith =>
@@ -211,11 +203,8 @@ abstract class _QrCodeListState implements QrCodeListState {
   String get errorMessage;
   @override
   List<QrCodeGenerate> get codes;
-
-  /// Create a copy of QrCodeListState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$QrCodeListStateImplCopyWith<_$QrCodeListStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -227,9 +216,7 @@ mixin _$QrCodeState {
   String get errorMessage => throw _privateConstructorUsedError;
   QrCodeGenerate? get code => throw _privateConstructorUsedError;
 
-  /// Create a copy of QrCodeState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $QrCodeStateCopyWith<QrCodeState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -257,8 +244,6 @@ class _$QrCodeStateCopyWithImpl<$Res, $Val extends QrCodeState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of QrCodeState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -311,8 +296,6 @@ class __$$QrCodeStateImplCopyWithImpl<$Res>
       _$QrCodeStateImpl _value, $Res Function(_$QrCodeStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of QrCodeState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -385,9 +368,7 @@ class _$QrCodeStateImpl implements _QrCodeState {
   int get hashCode =>
       Object.hash(runtimeType, isLoading, isError, errorMessage, code);
 
-  /// Create a copy of QrCodeState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$QrCodeStateImplCopyWith<_$QrCodeStateImpl> get copyWith =>
@@ -409,11 +390,8 @@ abstract class _QrCodeState implements QrCodeState {
   String get errorMessage;
   @override
   QrCodeGenerate? get code;
-
-  /// Create a copy of QrCodeState
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$QrCodeStateImplCopyWith<_$QrCodeStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

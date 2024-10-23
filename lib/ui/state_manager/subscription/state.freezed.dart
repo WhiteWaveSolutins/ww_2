@@ -15,34 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$LocalCodeListState {
+mixin _$SubscriptionState {
+  bool get hasPremium => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
-  List<LocalBarcode> get codes => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $LocalCodeListStateCopyWith<LocalCodeListState> get copyWith =>
+  $SubscriptionStateCopyWith<SubscriptionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocalCodeListStateCopyWith<$Res> {
-  factory $LocalCodeListStateCopyWith(
-          LocalCodeListState value, $Res Function(LocalCodeListState) then) =
-      _$LocalCodeListStateCopyWithImpl<$Res, LocalCodeListState>;
+abstract class $SubscriptionStateCopyWith<$Res> {
+  factory $SubscriptionStateCopyWith(
+          SubscriptionState value, $Res Function(SubscriptionState) then) =
+      _$SubscriptionStateCopyWithImpl<$Res, SubscriptionState>;
   @useResult
   $Res call(
-      {bool isLoading,
-      bool isError,
-      String errorMessage,
-      List<LocalBarcode> codes});
+      {bool hasPremium, bool isLoading, bool isError, String errorMessage});
 }
 
 /// @nodoc
-class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
-    implements $LocalCodeListStateCopyWith<$Res> {
-  _$LocalCodeListStateCopyWithImpl(this._value, this._then);
+class _$SubscriptionStateCopyWithImpl<$Res, $Val extends SubscriptionState>
+    implements $SubscriptionStateCopyWith<$Res> {
+  _$SubscriptionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -52,12 +49,16 @@ class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? hasPremium = null,
     Object? isLoading = null,
     Object? isError = null,
     Object? errorMessage = null,
-    Object? codes = null,
   }) {
     return _then(_value.copyWith(
+      hasPremium: null == hasPremium
+          ? _value.hasPremium
+          : hasPremium // ignore: cast_nullable_to_non_nullable
+              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -70,46 +71,43 @@ class _$LocalCodeListStateCopyWithImpl<$Res, $Val extends LocalCodeListState>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      codes: null == codes
-          ? _value.codes
-          : codes // ignore: cast_nullable_to_non_nullable
-              as List<LocalBarcode>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$LocalCodeListStateImplCopyWith<$Res>
-    implements $LocalCodeListStateCopyWith<$Res> {
-  factory _$$LocalCodeListStateImplCopyWith(_$LocalCodeListStateImpl value,
-          $Res Function(_$LocalCodeListStateImpl) then) =
-      __$$LocalCodeListStateImplCopyWithImpl<$Res>;
+abstract class _$$SubscriptionStateImplCopyWith<$Res>
+    implements $SubscriptionStateCopyWith<$Res> {
+  factory _$$SubscriptionStateImplCopyWith(_$SubscriptionStateImpl value,
+          $Res Function(_$SubscriptionStateImpl) then) =
+      __$$SubscriptionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {bool isLoading,
-      bool isError,
-      String errorMessage,
-      List<LocalBarcode> codes});
+      {bool hasPremium, bool isLoading, bool isError, String errorMessage});
 }
 
 /// @nodoc
-class __$$LocalCodeListStateImplCopyWithImpl<$Res>
-    extends _$LocalCodeListStateCopyWithImpl<$Res, _$LocalCodeListStateImpl>
-    implements _$$LocalCodeListStateImplCopyWith<$Res> {
-  __$$LocalCodeListStateImplCopyWithImpl(_$LocalCodeListStateImpl _value,
-      $Res Function(_$LocalCodeListStateImpl) _then)
+class __$$SubscriptionStateImplCopyWithImpl<$Res>
+    extends _$SubscriptionStateCopyWithImpl<$Res, _$SubscriptionStateImpl>
+    implements _$$SubscriptionStateImplCopyWith<$Res> {
+  __$$SubscriptionStateImplCopyWithImpl(_$SubscriptionStateImpl _value,
+      $Res Function(_$SubscriptionStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? hasPremium = null,
     Object? isLoading = null,
     Object? isError = null,
     Object? errorMessage = null,
-    Object? codes = null,
   }) {
-    return _then(_$LocalCodeListStateImpl(
+    return _then(_$SubscriptionStateImpl(
+      null == hasPremium
+          ? _value.hasPremium
+          : hasPremium // ignore: cast_nullable_to_non_nullable
+              as bool,
       null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -122,24 +120,22 @@ class __$$LocalCodeListStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
-      null == codes
-          ? _value._codes
-          : codes // ignore: cast_nullable_to_non_nullable
-              as List<LocalBarcode>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LocalCodeListStateImpl implements _LocalCodeListState {
-  _$LocalCodeListStateImpl(
-      [this.isLoading = false,
+class _$SubscriptionStateImpl implements _SubscriptionState {
+  _$SubscriptionStateImpl(
+      [this.hasPremium = false,
+      this.isLoading = false,
       this.isError = false,
-      this.errorMessage = '',
-      final List<LocalBarcode> codes = const []])
-      : _codes = codes;
+      this.errorMessage = '']);
 
+  @override
+  @JsonKey()
+  final bool hasPremium;
   @override
   @JsonKey()
   final bool isLoading;
@@ -149,52 +145,47 @@ class _$LocalCodeListStateImpl implements _LocalCodeListState {
   @override
   @JsonKey()
   final String errorMessage;
-  final List<LocalBarcode> _codes;
-  @override
-  @JsonKey()
-  List<LocalBarcode> get codes {
-    if (_codes is EqualUnmodifiableListView) return _codes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_codes);
-  }
 
   @override
   String toString() {
-    return 'LocalCodeListState(isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage, codes: $codes)';
+    return 'SubscriptionState(hasPremium: $hasPremium, isLoading: $isLoading, isError: $isError, errorMessage: $errorMessage)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalCodeListStateImpl &&
+            other is _$SubscriptionStateImpl &&
+            (identical(other.hasPremium, hasPremium) ||
+                other.hasPremium == hasPremium) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isError, isError) || other.isError == isError) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
-            const DeepCollectionEquality().equals(other._codes, _codes));
+                other.errorMessage == errorMessage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isError, errorMessage,
-      const DeepCollectionEquality().hash(_codes));
+  int get hashCode =>
+      Object.hash(runtimeType, hasPremium, isLoading, isError, errorMessage);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalCodeListStateImplCopyWith<_$LocalCodeListStateImpl> get copyWith =>
-      __$$LocalCodeListStateImplCopyWithImpl<_$LocalCodeListStateImpl>(
+  _$$SubscriptionStateImplCopyWith<_$SubscriptionStateImpl> get copyWith =>
+      __$$SubscriptionStateImplCopyWithImpl<_$SubscriptionStateImpl>(
           this, _$identity);
 }
 
-abstract class _LocalCodeListState implements LocalCodeListState {
-  factory _LocalCodeListState(
-      [final bool isLoading,
+abstract class _SubscriptionState implements SubscriptionState {
+  factory _SubscriptionState(
+      [final bool hasPremium,
+      final bool isLoading,
       final bool isError,
-      final String errorMessage,
-      final List<LocalBarcode> codes]) = _$LocalCodeListStateImpl;
+      final String errorMessage]) = _$SubscriptionStateImpl;
 
+  @override
+  bool get hasPremium;
   @override
   bool get isLoading;
   @override
@@ -202,9 +193,7 @@ abstract class _LocalCodeListState implements LocalCodeListState {
   @override
   String get errorMessage;
   @override
-  List<LocalBarcode> get codes;
-  @override
   @JsonKey(ignore: true)
-  _$$LocalCodeListStateImplCopyWith<_$LocalCodeListStateImpl> get copyWith =>
+  _$$SubscriptionStateImplCopyWith<_$SubscriptionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

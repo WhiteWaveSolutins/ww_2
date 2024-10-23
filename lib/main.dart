@@ -10,8 +10,6 @@ import 'package:ww_2/ui/state_manager/store.dart';
 import 'package:talker/talker.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-bool offSubscribe = true;
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {

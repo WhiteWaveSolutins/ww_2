@@ -23,11 +23,11 @@ mixin _$AppState {
       throw _privateConstructorUsedError; //Qr code
   QrCodeState get qrCodeGeneratedState => throw _privateConstructorUsedError;
   QrCodeListState get createdQrCodeListState =>
-      throw _privateConstructorUsedError;
+      throw _privateConstructorUsedError; //Subscription
+  SubscriptionState get subscriptionState => throw _privateConstructorUsedError;
+  PaywallListState get paywallListState => throw _privateConstructorUsedError;
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $AppStateCopyWith<AppState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,12 +41,16 @@ abstract class $AppStateCopyWith<$Res> {
       {LocalCodeListState savedCodeListState,
       LocalCodeListState historyCodeListState,
       QrCodeState qrCodeGeneratedState,
-      QrCodeListState createdQrCodeListState});
+      QrCodeListState createdQrCodeListState,
+      SubscriptionState subscriptionState,
+      PaywallListState paywallListState});
 
   $LocalCodeListStateCopyWith<$Res> get savedCodeListState;
   $LocalCodeListStateCopyWith<$Res> get historyCodeListState;
   $QrCodeStateCopyWith<$Res> get qrCodeGeneratedState;
   $QrCodeListStateCopyWith<$Res> get createdQrCodeListState;
+  $SubscriptionStateCopyWith<$Res> get subscriptionState;
+  $PaywallListStateCopyWith<$Res> get paywallListState;
 }
 
 /// @nodoc
@@ -59,8 +63,6 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -68,6 +70,8 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     Object? historyCodeListState = null,
     Object? qrCodeGeneratedState = null,
     Object? createdQrCodeListState = null,
+    Object? subscriptionState = null,
+    Object? paywallListState = null,
   }) {
     return _then(_value.copyWith(
       savedCodeListState: null == savedCodeListState
@@ -86,11 +90,17 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.createdQrCodeListState
           : createdQrCodeListState // ignore: cast_nullable_to_non_nullable
               as QrCodeListState,
+      subscriptionState: null == subscriptionState
+          ? _value.subscriptionState
+          : subscriptionState // ignore: cast_nullable_to_non_nullable
+              as SubscriptionState,
+      paywallListState: null == paywallListState
+          ? _value.paywallListState
+          : paywallListState // ignore: cast_nullable_to_non_nullable
+              as PaywallListState,
     ) as $Val);
   }
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocalCodeListStateCopyWith<$Res> get savedCodeListState {
@@ -100,8 +110,6 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     });
   }
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocalCodeListStateCopyWith<$Res> get historyCodeListState {
@@ -111,8 +119,6 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     });
   }
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $QrCodeStateCopyWith<$Res> get qrCodeGeneratedState {
@@ -121,14 +127,28 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     });
   }
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $QrCodeListStateCopyWith<$Res> get createdQrCodeListState {
     return $QrCodeListStateCopyWith<$Res>(_value.createdQrCodeListState,
         (value) {
       return _then(_value.copyWith(createdQrCodeListState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SubscriptionStateCopyWith<$Res> get subscriptionState {
+    return $SubscriptionStateCopyWith<$Res>(_value.subscriptionState, (value) {
+      return _then(_value.copyWith(subscriptionState: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PaywallListStateCopyWith<$Res> get paywallListState {
+    return $PaywallListStateCopyWith<$Res>(_value.paywallListState, (value) {
+      return _then(_value.copyWith(paywallListState: value) as $Val);
     });
   }
 }
@@ -145,7 +165,9 @@ abstract class _$$AppStateImplCopyWith<$Res>
       {LocalCodeListState savedCodeListState,
       LocalCodeListState historyCodeListState,
       QrCodeState qrCodeGeneratedState,
-      QrCodeListState createdQrCodeListState});
+      QrCodeListState createdQrCodeListState,
+      SubscriptionState subscriptionState,
+      PaywallListState paywallListState});
 
   @override
   $LocalCodeListStateCopyWith<$Res> get savedCodeListState;
@@ -155,6 +177,10 @@ abstract class _$$AppStateImplCopyWith<$Res>
   $QrCodeStateCopyWith<$Res> get qrCodeGeneratedState;
   @override
   $QrCodeListStateCopyWith<$Res> get createdQrCodeListState;
+  @override
+  $SubscriptionStateCopyWith<$Res> get subscriptionState;
+  @override
+  $PaywallListStateCopyWith<$Res> get paywallListState;
 }
 
 /// @nodoc
@@ -165,8 +191,6 @@ class __$$AppStateImplCopyWithImpl<$Res>
       _$AppStateImpl _value, $Res Function(_$AppStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -174,6 +198,8 @@ class __$$AppStateImplCopyWithImpl<$Res>
     Object? historyCodeListState = null,
     Object? qrCodeGeneratedState = null,
     Object? createdQrCodeListState = null,
+    Object? subscriptionState = null,
+    Object? paywallListState = null,
   }) {
     return _then(_$AppStateImpl(
       savedCodeListState: null == savedCodeListState
@@ -192,6 +218,14 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.createdQrCodeListState
           : createdQrCodeListState // ignore: cast_nullable_to_non_nullable
               as QrCodeListState,
+      subscriptionState: null == subscriptionState
+          ? _value.subscriptionState
+          : subscriptionState // ignore: cast_nullable_to_non_nullable
+              as SubscriptionState,
+      paywallListState: null == paywallListState
+          ? _value.paywallListState
+          : paywallListState // ignore: cast_nullable_to_non_nullable
+              as PaywallListState,
     ));
   }
 }
@@ -203,7 +237,9 @@ class _$AppStateImpl implements _AppState {
       {required this.savedCodeListState,
       required this.historyCodeListState,
       required this.qrCodeGeneratedState,
-      required this.createdQrCodeListState});
+      required this.createdQrCodeListState,
+      required this.subscriptionState,
+      required this.paywallListState});
 
 //Local codes
   @override
@@ -215,10 +251,15 @@ class _$AppStateImpl implements _AppState {
   final QrCodeState qrCodeGeneratedState;
   @override
   final QrCodeListState createdQrCodeListState;
+//Subscription
+  @override
+  final SubscriptionState subscriptionState;
+  @override
+  final PaywallListState paywallListState;
 
   @override
   String toString() {
-    return 'AppState(savedCodeListState: $savedCodeListState, historyCodeListState: $historyCodeListState, qrCodeGeneratedState: $qrCodeGeneratedState, createdQrCodeListState: $createdQrCodeListState)';
+    return 'AppState(savedCodeListState: $savedCodeListState, historyCodeListState: $historyCodeListState, qrCodeGeneratedState: $qrCodeGeneratedState, createdQrCodeListState: $createdQrCodeListState, subscriptionState: $subscriptionState, paywallListState: $paywallListState)';
   }
 
   @override
@@ -233,16 +274,24 @@ class _$AppStateImpl implements _AppState {
             (identical(other.qrCodeGeneratedState, qrCodeGeneratedState) ||
                 other.qrCodeGeneratedState == qrCodeGeneratedState) &&
             (identical(other.createdQrCodeListState, createdQrCodeListState) ||
-                other.createdQrCodeListState == createdQrCodeListState));
+                other.createdQrCodeListState == createdQrCodeListState) &&
+            (identical(other.subscriptionState, subscriptionState) ||
+                other.subscriptionState == subscriptionState) &&
+            (identical(other.paywallListState, paywallListState) ||
+                other.paywallListState == paywallListState));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, savedCodeListState,
-      historyCodeListState, qrCodeGeneratedState, createdQrCodeListState);
+  int get hashCode => Object.hash(
+      runtimeType,
+      savedCodeListState,
+      historyCodeListState,
+      qrCodeGeneratedState,
+      createdQrCodeListState,
+      subscriptionState,
+      paywallListState);
 
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>
@@ -254,22 +303,24 @@ abstract class _AppState implements AppState {
       {required final LocalCodeListState savedCodeListState,
       required final LocalCodeListState historyCodeListState,
       required final QrCodeState qrCodeGeneratedState,
-      required final QrCodeListState createdQrCodeListState}) = _$AppStateImpl;
+      required final QrCodeListState createdQrCodeListState,
+      required final SubscriptionState subscriptionState,
+      required final PaywallListState paywallListState}) = _$AppStateImpl;
 
-//Local codes
-  @override
+  @override //Local codes
   LocalCodeListState get savedCodeListState;
   @override
-  LocalCodeListState get historyCodeListState; //Qr code
-  @override
+  LocalCodeListState get historyCodeListState;
+  @override //Qr code
   QrCodeState get qrCodeGeneratedState;
   @override
   QrCodeListState get createdQrCodeListState;
-
-  /// Create a copy of AppState
-  /// with the given fields replaced by the non-null parameter values.
+  @override //Subscription
+  SubscriptionState get subscriptionState;
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  PaywallListState get paywallListState;
+  @override
+  @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

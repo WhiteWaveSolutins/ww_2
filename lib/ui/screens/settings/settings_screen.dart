@@ -1,13 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:ww_2/data/api/links.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
-import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/state.dart';
 import 'package:ww_2/ui/widgets/buttons/close_button.dart';
 import 'package:ww_2/ui/widgets/buttons/main_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
@@ -63,18 +65,26 @@ class SettingsScreen extends StatelessWidget {
                         icon: AppIcons.scanner,
                         size: 100,
                       ),
-                      if (!offSubscribe) ...[
-                        const SizedBox(height: 16),
-                        GradientText.primary(
-                          'Want more options?',
-                          style: AppText.text1,
-                        ),
-                        const SizedBox(height: 16),
-                        MainButton(
-                          onPressed: getItService.navigatorService.onGetPremium,
-                          title: 'Sign up for Premium',
-                        ),
-                      ],
+                      StoreConnector<AppState, SubscriptionState>(
+                        converter: (store) => store.state.subscriptionState,
+                        builder: (context, state) {
+                          if (state.hasPremium) return const SizedBox();
+                          return Column(
+                            children: [
+                              const SizedBox(height: 16),
+                              GradientText.primary(
+                                'Want more options?',
+                                style: AppText.text1,
+                              ),
+                              const SizedBox(height: 16),
+                              MainButton(
+                                onPressed: getItService.navigatorService.onGetPremium,
+                                title: 'Sign up for Premium',
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                       const SizedBox(height: 24),
                       //const _Button(
                       //  icon: AppIcons.playstation,
@@ -84,7 +94,7 @@ class SettingsScreen extends StatelessWidget {
                       //  icon: AppIcons.version,
                       //  title: 'Version',
                       //),
-                       _Button(
+                      _Button(
                         onTap: () async {
                           final inAppReview = InAppReview.instance;
                           if (await inAppReview.isAvailable()) {

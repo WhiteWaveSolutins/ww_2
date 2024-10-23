@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart' as cp;
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
@@ -95,7 +96,9 @@ class _PickCountryModalState extends State<PickCountryModal> {
               const SizedBox(height: 16),
               if (isLoading)
                 const Center(
-                  child: CircularProgressIndicator(),
+                  child: CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
                 )
               else if (countries.isEmpty)
                 Text(
