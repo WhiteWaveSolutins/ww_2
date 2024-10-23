@@ -1,6 +1,7 @@
 import 'package:redux/redux.dart';
 import 'package:ww_2/data/models/answer/answer.dart';
 import 'package:ww_2/data/models/qr_code/qr_code.dart';
+import 'package:ww_2/data/services/shared_preferences_service.dart';
 import 'package:ww_2/domain/repositories/qr_code_repository.dart';
 import 'package:ww_2/ui/state_manager/qr_code/action.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
@@ -38,6 +39,9 @@ class QrCodeMiddleware implements MiddlewareClass<AppState> {
           store.dispatch(
             ShowQrCodeGenerateAction(qrCode: answer.data!),
           );
+          final count = await SharedPreferencesService.getCountGeneration();
+          if (count == 0) SharedPreferencesService.setDateUpdateCountGeneration();
+          SharedPreferencesService.addCountGeneration();
         }
       });
     }

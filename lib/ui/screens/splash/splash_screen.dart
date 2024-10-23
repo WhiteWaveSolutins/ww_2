@@ -35,6 +35,17 @@ class _SplashScreenState extends State<SplashScreen> {
     _navigateToNext();
   }
 
+  void _checkCount() async {
+    final date = await SharedPreferencesService.getDateUpdateCountGeneration();
+    if (date != null) {
+      final dif = DateTime.now().difference(date);
+      if (dif >= const Duration(hours: 24)) {
+        SharedPreferencesService.clearCountGeneration();
+        SharedPreferencesService.clearDateUpdateCountGeneration();
+      }
+    }
+  }
+
   void _navigateToNext() async {
     final status = await SharedPreferencesService.getStatusShowOnboarding();
     if (!status) SharedPreferencesService.switchStatusShowOnboarding();
