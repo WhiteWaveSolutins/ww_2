@@ -36,13 +36,13 @@ void main() {
     );
   };
 
-  runApp(ScannerApp(locator: locator));
+  runApp(QrCodeScannerReaderScan(locator: locator));
 }
 
-class ScannerApp extends StatelessWidget {
+class QrCodeScannerReaderScan extends StatelessWidget {
   final LocatorService locator;
 
-  const ScannerApp({
+  const QrCodeScannerReaderScan({
     super.key,
     required this.locator,
   });
@@ -55,6 +55,7 @@ class ScannerApp extends StatelessWidget {
         child: MaterialApp(
           navigatorKey: locator.navigatorKey,
           home: const SplashScreen(),
+          title: 'Qr code scanner - reader scan',
           theme: lightThemeData,
           onGenerateRoute: AppRoutes.onGenerateRoute,
         ),

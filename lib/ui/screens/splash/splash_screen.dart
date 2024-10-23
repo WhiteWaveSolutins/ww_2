@@ -60,11 +60,15 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GradientText.primary(
-              'Scan Pro',
-              style: AppText.h1.copyWith(
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: GradientText.primary(
+                'Qr code scanner - reader scan',
+                textAlign: TextAlign.center,
+                style: AppText.h1.copyWith(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
             const SizedBox(height: 5),
