@@ -5,6 +5,7 @@ import 'package:ww_2/data/api/api.dart';
 import 'package:ww_2/data/database/database.dart';
 import 'package:ww_2/data/repositories/api_qr_code_repository.dart';
 import 'package:ww_2/data/repositories/local_local_code_repository.dart';
+import 'package:ww_2/data/services/remote_config_service.dart';
 import 'package:ww_2/data/services/subscription_service.dart';
 import 'package:ww_2/domain/repositories/local_code_repository.dart';
 import 'package:ww_2/domain/repositories/qr_code_repository.dart';
@@ -31,7 +32,8 @@ class LocatorService {
   late QrCodeRepository qrCodeRepository;
 
   late NavigatorService navigatorService;
-  final subscriptionService = SubscriptionService();
+  late SubscriptionService subscriptionService;
+  final remoteConfigService = RemoteConfigService();
 
   late LocalCodeUseCase localCodeUseCase;
   late QrCodeUseCase qrCodeUseCase;
@@ -46,6 +48,7 @@ class LocatorService {
     );
 
     navigatorService = NavigatorService(navigatorKey: navigatorKey);
+    subscriptionService = SubscriptionService(remoteConfigService: remoteConfigService);
 
     store = Store(
       appReducer,
@@ -81,5 +84,6 @@ class LocatorService {
     GetIt.I.registerSingleton<NavigatorService>(navigatorService);
     GetIt.I.registerSingleton<LocalCodeUseCase>(localCodeUseCase);
     GetIt.I.registerSingleton<QrCodeUseCase>(qrCodeUseCase);
+    GetIt.I.registerSingleton<RemoteConfigService>(remoteConfigService);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:ww_2/domain/di/locator.dart';
@@ -18,8 +19,9 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   final locator = LocatorService();
 
@@ -34,7 +36,47 @@ void main() {
     );
   };
 
-  runApp(ScannerApp(locator: locator));
+  runApp(FApp(locator: locator));
+}
+
+class FApp extends StatelessWidget {
+  final LocatorService locator;
+  final _initialization = Firebase.initializeApp();
+
+  FApp({
+    super.key,
+    required this.locator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return ScannerApp(locator: locator);
+        }
+
+        return const MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class ScannerApp extends StatelessWidget {

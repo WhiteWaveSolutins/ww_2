@@ -2,19 +2,21 @@ import 'package:apphud/apphud.dart';
 import 'package:apphud/models/apphud_models/apphud_composite_model.dart';
 import 'package:apphud/models/apphud_models/composite/apphud_purchase_result.dart';
 import 'package:talker/talker.dart';
-import 'package:ww_2/data/api/api_settings.dart';
 import 'package:ww_2/data/models/answer/answer.dart';
 import 'package:ww_2/data/models/paywalls/paywall.dart';
+import 'package:ww_2/data/services/remote_config_service.dart';
 
 class SubscriptionService {
+  final RemoteConfigService remoteConfigService;
+
   //late ApphudUser _user;
 
-  SubscriptionService() {
+  SubscriptionService({required this.remoteConfigService}) {
     _init();
   }
 
   void _init() async {
-    await Apphud.start(apiKey: ApiSettings.apphudKey);
+    await Apphud.start(apiKey: remoteConfigService.apphudKey);
     //getMainPaywall();
   }
 

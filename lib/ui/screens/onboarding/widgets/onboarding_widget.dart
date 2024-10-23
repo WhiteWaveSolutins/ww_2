@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ww_2/data/api/links.dart';
+import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/text.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
@@ -126,7 +126,7 @@ class BottomOnboarding extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () => launchUrl(
-                  Uri.parse(AppLinks.terms),
+                  Uri.parse(getItService.remoteConfigService.termsLink),
                   mode: LaunchMode.externalApplication,
                 ),
                 child: GradientText.primary(
@@ -136,7 +136,7 @@ class BottomOnboarding extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () => launchUrl(
-                  Uri.parse(AppLinks.privacy),
+                  Uri.parse(getItService.remoteConfigService.privacyLink),
                   mode: LaunchMode.externalApplication,
                 ),
                 child: GradientText.primary(
