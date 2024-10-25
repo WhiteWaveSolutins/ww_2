@@ -7,6 +7,7 @@ import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/screens/code/local_code_screen.dart';
 import 'package:ww_2/ui/state_manager/qr_code/action.dart';
 import 'package:ww_2/ui/state_manager/qr_code/state.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
@@ -55,13 +56,19 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
           actions: [
             IconButton(
               onPressed: () {
-                getItService.qrCodeUseCase.deleteSave(widget.qr);
-                getItService.navigatorService.onPop();
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.transparent,
+                  builder: (context) => DeleteQr(
+                    onDelete: () {
+                      getItService.qrCodeUseCase.deleteSave(widget.qr);
+                      getItService.navigatorService.onPop();
+                      getItService.navigatorService.onPop();
+                    },
+                  ),
+                );
               },
-              icon: const Icon(
-                CupertinoIcons.trash,
-                color: AppColors.white,
-              ),
+              icon: const SvgIcon(icon: AppIcons.trash),
             ),
             const SizedBox(width: 5),
           ],
@@ -120,15 +127,14 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   children: [
                     Expanded(
                       child: SimpleButton(
-                        onTap: () =>
-                            Share.shareXFiles(
-                              [
-                                XFile.fromData(
-                                  state.code!.image,
-                                  mimeType: 'image/png',
-                                ),
-                              ],
+                        onTap: () => Share.shareXFiles(
+                          [
+                            XFile.fromData(
+                              state.code!.image,
+                              mimeType: 'image/png',
                             ),
+                          ],
+                        ),
                         title: 'Share',
                         icon: AppIcons.share,
                       ),
@@ -138,10 +144,10 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                       child: SimpleButton(
                         onTap: isCustomized
                             ? () {
-                          getItService.qrCodeUseCase.updateSave(state.code!);
-                          getItService.navigatorService.onFirst();
-                          getItService.navigatorService.onCreated();
-                        }
+                                getItService.qrCodeUseCase.updateSave(state.code!);
+                                getItService.navigatorService.onFirst();
+                                getItService.navigatorService.onCreated();
+                              }
                             : null,
                         title: 'Save',
                         icon: AppIcons.save,

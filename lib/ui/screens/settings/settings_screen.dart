@@ -1,17 +1,18 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:ww_2/data/api/links.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
+import 'package:ww_2/domain/services/email_service.dart';
 import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
+import 'package:ww_2/ui/resurses/images.dart';
 import 'package:ww_2/ui/resurses/text.dart';
-import 'package:ww_2/ui/widgets/buttons/close_button.dart';
-import 'package:ww_2/ui/widgets/buttons/main_button.dart';
+import 'package:ww_2/ui/widgets/buttons/left_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
-import 'package:ww_2/ui/widgets/gradient_widget.dart';
 import 'package:ww_2/ui/widgets/svg_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,108 +21,107 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Stack(
-        alignment: Alignment.topRight,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Settings',
+          style: AppText.h2.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
+        leading: const LeftButton(),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: getItService.navigatorService.onPop,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 20,
-                    sigmaY: 20,
+          if (!offSubscribe) ...[
+            Container(
+              padding: const EdgeInsets.only(right: 26),
+              decoration: BoxDecoration(
+                color: const Color(0xFF272727),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.primary,
+                    blurRadius: 10,
                   ),
-                  child: Container(
-                    width: 54,
-                    color: Colors.transparent,
-                    height: double.infinity,
-                  ),
-                ),
+                ],
               ),
-              Expanded(
-                child: Container(
-                  color: AppColors.black,
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top,
-                    left: 32,
-                    right: 32,
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 18),
-                      Text(
-                        'Settings',
-                        style: AppText.h2.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      const SvgIcon(
-                        icon: AppIcons.scanner,
-                        size: 100,
-                      ),
-                      if (!offSubscribe) ...[
-                        const SizedBox(height: 16),
+              child: Row(
+                children: [
+                  Image.asset(AppImages.pict),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         GradientText.primary(
                           'Want more options?',
-                          style: AppText.text1,
+                          style: AppText.text16,
                         ),
                         const SizedBox(height: 16),
-                        MainButton(
-                          onPressed: getItService.navigatorService.onGetPremium,
-                          title: 'Sign up for Premium',
-                        ),
+                        const _ButtonSign(),
                       ],
-                      const SizedBox(height: 24),
-                      //const _Button(
-                      //  icon: AppIcons.playstation,
-                      //  title: 'About us',
-                      //),
-                      //const _Button(
-                      //  icon: AppIcons.version,
-                      //  title: 'Version',
-                      //),
-                       _Button(
-                        onTap: () async {
-                          final inAppReview = InAppReview.instance;
-                          if (await inAppReview.isAvailable()) {
-                            inAppReview.requestReview();
-                          }
-                        },
-                        icon: AppIcons.chat,
-                        title: 'Rate us',
-                      ),
-                      _Button(
-                        onTap: () => launchUrl(
-                          Uri.parse(AppLinks.terms),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                        icon: AppIcons.document,
-                        title: 'Terms of Use',
-                      ),
-                      _Button(
-                        onTap: () => launchUrl(
-                          Uri.parse(AppLinks.privacy),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                        icon: AppIcons.copy,
-                        title: 'Privacy Policy',
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
+              ),
+            ),
+          ],
+          const SizedBox(height: 24),
+          _Box(
+            title: 'Feedback and support',
+            buttons: [
+              _Button(
+                padding: 2,
+                onTap: () async {
+                  final inAppReview = InAppReview.instance;
+                  if (await inAppReview.isAvailable()) {
+                    inAppReview.requestReview();
+                  }
+                },
+                icon: AppIcons.star,
+                title: 'Rate us',
+              ),
+              _Button(
+                onTap: () {
+                  EmailService.launchEmailSubmission(
+                    toEmail: 'sertachindistan0617@outlook.com',
+                    subject: "Conntact with support",
+                    body: "\"Your message here\"",
+                  );
+                },
+                icon: AppIcons.support,
+                title: 'Contact support',
               ),
             ],
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 18,
-              right: 16,
-            ),
-            child: const CloseButton2(),
+          const SizedBox(height: 16),
+          _Box(
+            title: 'About the program',
+            buttons: [
+              //const _Button(
+              //  icon: AppIcons.playstation,
+              //  title: 'About us',
+              //),
+              _Button(
+                onTap: () => launchUrl(
+                  Uri.parse(AppLinks.terms),
+                  mode: LaunchMode.externalApplication,
+                ),
+                padding: 3,
+                icon: AppIcons.pr,
+                title: 'Terms of Use',
+              ),
+              _Button(
+                onTap: () => launchUrl(
+                  Uri.parse(AppLinks.privacy),
+                  mode: LaunchMode.externalApplication,
+                ),
+                icon: AppIcons.doc,
+                title: 'Privacy Policy',
+              ),
+            ],
           ),
         ],
       ),
@@ -133,11 +133,13 @@ class _Button extends StatelessWidget {
   final String icon;
   final String title;
   final Function()? onTap;
+  final double padding;
 
   const _Button({
     super.key,
     required this.title,
     required this.icon,
+    this.padding = 6,
     this.onTap,
   });
 
@@ -147,20 +149,32 @@ class _Button extends StatelessWidget {
       onTap: onTap,
       child: Container(
         color: Colors.transparent,
-        padding: const EdgeInsets.symmetric(vertical: 25),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
-            GradientWidget.primary(
-              SvgIcon(
+            Container(
+              width: 32,
+              height: 32,
+              padding: EdgeInsets.all(padding),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                gradient: const LinearGradient(
+                  colors: [
+                    AppColors.yellowGrad1,
+                    AppColors.yellowGrad2,
+                  ],
+                ),
+              ),
+              child: SvgIcon(
                 icon: icon,
-                size: 30,
+                color: Colors.white,
               ),
             ),
+            const SizedBox(width: 8),
             Expanded(
               child: Text(
                 title,
                 style: AppText.text16,
-                textAlign: TextAlign.center,
               ),
             ),
             const Icon(
@@ -168,6 +182,96 @@ class _Button extends StatelessWidget {
               color: AppColors.white,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Box extends StatelessWidget {
+  final List<_Button> buttons;
+  final String title;
+
+  const _Box({
+    super.key,
+    required this.title,
+    required this.buttons,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Opacity(
+          opacity: 0.5,
+          child: Text(
+            title,
+            style: AppText.text16,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
+            color: AppColors.white.withOpacity(.2),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              for (int i = 0; i < buttons.length; i++) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: buttons[i],
+                ),
+                if (i != buttons.length - 1) Divider(color: AppColors.white.withOpacity(.1)),
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ButtonSign extends StatelessWidget {
+  const _ButtonSign({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      onPressed: getItService.navigatorService.onGetPremium,
+      minSize: 1,
+      padding: EdgeInsets.zero,
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: AppColors.primary,
+            width: 2,
+          ),
+        ),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: const LinearGradient(
+              colors: [
+                AppColors.yellowGrad1,
+                AppColors.yellowGrad2,
+              ],
+            ),
+          ),
+          child: Center(
+            child: Text(
+              'Sign up for Premium',
+              style: AppText.text3.copyWith(
+                color: AppColors.black,
+              ),
+            ),
+          ),
         ),
       ),
     );

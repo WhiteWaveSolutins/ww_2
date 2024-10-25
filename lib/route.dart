@@ -7,6 +7,8 @@ import 'package:ww_2/ui/screens/code/local_code_screen.dart';
 import 'package:ww_2/ui/screens/code/qr_code_screen.dart';
 import 'package:ww_2/ui/screens/created_codes/created_screen.dart';
 import 'package:ww_2/ui/screens/generate/generate_customize_screen.dart';
+import 'package:ww_2/ui/screens/generate/generate_description_event_screen.dart';
+import 'package:ww_2/ui/screens/generate/generate_description_payment_screen.dart';
 import 'package:ww_2/ui/screens/generate/generate_description_screen.dart';
 import 'package:ww_2/ui/screens/generate/generate_result_screen.dart';
 import 'package:ww_2/ui/screens/generate/generate_screen.dart';
@@ -16,6 +18,7 @@ import 'package:ww_2/ui/screens/main/main_screen.dart';
 import 'package:ww_2/ui/screens/save_code/save_code_screen.dart';
 import 'package:ww_2/ui/screens/saved_codes/saved_codes_screen.dart';
 import 'package:ww_2/ui/screens/scan/scan_screen.dart';
+import 'package:ww_2/ui/screens/settings/settings_screen.dart';
 
 class AppRoutes {
   static const main = '/main';
@@ -25,12 +28,15 @@ class AppRoutes {
   static const qrCode = '/qr-code';
   static const saveCode = '/save-code';
   static const scan = '/scan';
+  static const settings = '/settings';
   static const generate = '/generate';
   static const createdCodes = '/created-codes';
   static const getPremium = '/get-premium';
   static const generateCustomize = '/generate-customize';
   static const generateResult = '/generate-result';
   static const generateDescription = '/generate-description';
+  static const generateDescriptionPayment = '/generate-description-payment';
+  static const generateDescriptionEvent = '/generate-description-event';
 
   static MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     final arg = settings.arguments as AppRouterArguments?;
@@ -39,6 +45,7 @@ class AppRoutes {
       AppRoutes.main: (BuildContext context) => const MainScreen(),
       AppRoutes.localCode: (BuildContext context) => LocalCodeScreen(localBarcode: arg!.barcode!),
       AppRoutes.scan: (BuildContext context) => const ScanScreen(),
+      AppRoutes.settings: (BuildContext context) => const SettingsScreen(),
       AppRoutes.historyCodes: (BuildContext context) => const HistoryCodesScreen(),
       AppRoutes.savedCodes: (BuildContext context) => const SavedCodesScreen(),
       AppRoutes.getPremium: (BuildContext context) => const GetPremiumScreen(),
@@ -50,6 +57,10 @@ class AppRoutes {
       AppRoutes.generateDescription: (BuildContext context) => GenerateDescriptionScreen(
             type: arg!.typeGenerate!,
           ),
+      AppRoutes.generateDescriptionPayment: (BuildContext context) =>
+          const GenerateDescriptionPaymentScreen(),
+      AppRoutes.generateDescriptionEvent: (BuildContext context) =>
+          const GenerateDescriptionEventScreen(),
       AppRoutes.saveCode: (BuildContext context) => SaveCodeScreen(
             localBarcode: arg!.barcode!,
           ),

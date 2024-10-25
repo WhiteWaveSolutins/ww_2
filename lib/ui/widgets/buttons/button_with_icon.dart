@@ -22,31 +22,46 @@ class ButtonWithIcon extends StatelessWidget {
       minSize: 1,
       padding: EdgeInsets.zero,
       child: Container(
-        width: double.infinity,
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          gradient: const LinearGradient(
-            colors: [
-              AppColors.yellowGrad1,
-              AppColors.yellowGrad2,
-            ],
+          border: Border.all(
+            color: AppColors.primary,
+            width: 2,
           ),
         ),
-        child: Center(
-          child: Column(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: const LinearGradient(
+              colors: [
+                AppColors.yellowGrad1,
+                AppColors.yellowGrad2,
+              ],
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(height: 10),
-              SvgIcon(
-                icon: icon,
-                size: 50,
-                color: AppColors.black,
+              Opacity(
+                opacity: 0,
+                child: SvgIcon(
+                  icon: icon,
+                  size: 30,
+                  color: AppColors.black,
+                ),
               ),
-              const SizedBox(height: 12),
               Text(
                 title,
                 style: AppText.text1,
               ),
-              const SizedBox(height: 13),
+              SvgIcon(
+                icon: icon,
+                size: 30,
+                color: AppColors.black,
+              ),
             ],
           ),
         ),

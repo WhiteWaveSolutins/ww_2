@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -14,6 +16,7 @@ import 'package:ww_2/ui/widgets/buttons/simple_button.dart';
 import 'package:ww_2/ui/widgets/image_back.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:ww_2/ui/widgets/svg_icon.dart';
 
 class LocalCodeScreen extends StatelessWidget {
   final LocalBarcode localBarcode;
@@ -37,13 +40,19 @@ class LocalCodeScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                getItService.localCodeUseCase.deleteSave(localBarcode);
-                getItService.navigatorService.onPop();
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.transparent,
+                  builder: (context) => DeleteQr(
+                    onDelete: () {
+                      getItService.localCodeUseCase.deleteSave(localBarcode);
+                      getItService.navigatorService.onPop();
+                      getItService.navigatorService.onPop();
+                    },
+                  ),
+                );
               },
-              icon: const Icon(
-                CupertinoIcons.trash,
-                color: AppColors.white,
-              ),
+              icon: const SvgIcon(icon: AppIcons.trash),
             ),
             const SizedBox(width: 5),
           ],
@@ -118,6 +127,116 @@ class LocalCodeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DeleteQr extends StatelessWidget {
+  final Function() onDelete;
+
+  const DeleteQr({
+    super.key,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: Navigator.of(context).pop,
+      onHorizontalDragStart: (_) => Navigator.of(context).pop(),
+      child: Stack(
+        children: [
+          Container(
+            color: Colors.transparent,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            alignment: Alignment.bottomRight,
+          ),
+          Positioned(
+            top: 55,
+            right: 10,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                width: 163,
+                decoration: BoxDecoration(
+                  color: AppColors.white.withOpacity(.2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 20,
+                      sigmaY: 20,
+                    ),
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            showDialog(
+                              context: context,
+                              useRootNavigator: true,
+                              builder: (_) => CupertinoAlertDialog(
+                                title: const Text('Clear history'),
+                                content: const Text('Are you sure you want to remove this code'),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    onPressed: onDelete,
+                                    isDefaultAction: true,
+                                    child: const Text(
+                                      "Yes",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                  CupertinoDialogAction(
+                                    onPressed: Navigator.of(context).pop,
+                                    isDefaultAction: true,
+                                    child: const Text(
+                                      "No",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              'Delete',
+                              style: AppText.text3.copyWith(
+                                color: AppColors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          color: AppColors.white.withOpacity(.1),
+                          height: 1,
+                        ),
+                        GestureDetector(
+                          onTap: Navigator.of(context).pop,
+                          child: Container(
+                            color: Colors.transparent,
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              'Cancel',
+                              style: AppText.text3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

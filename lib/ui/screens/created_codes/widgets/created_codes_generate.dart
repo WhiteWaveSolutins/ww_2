@@ -29,7 +29,7 @@ class CreatedCodesGenerate extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: ButtonWithIcon(
             onPressed: getItService.navigatorService.onGenerate,
-            title: 'Generate',
+            title: 'GENERATE',
             icon: AppIcons.generateFill,
           ),
         ),

@@ -34,9 +34,17 @@ class NavigatorService {
 
   void onScan() => navigatorKey.currentState!.pushNamed(AppRoutes.scan);
 
+  void onSettings() => navigatorKey.currentState!.pushNamed(AppRoutes.settings);
+
   void onGenerate() => navigatorKey.currentState!.pushNamed(AppRoutes.generate);
 
   void onCreated() => navigatorKey.currentState!.pushNamed(AppRoutes.createdCodes);
+
+  void onGenerateDescriptionPayment() =>
+      navigatorKey.currentState!.pushNamed(AppRoutes.generateDescriptionPayment);
+
+  void onGenerateDescriptionEvent() =>
+      navigatorKey.currentState!.pushNamed(AppRoutes.generateDescriptionEvent);
 
   void onGetPremium() => navigatorKey.currentState!.pushNamed(AppRoutes.getPremium);
 

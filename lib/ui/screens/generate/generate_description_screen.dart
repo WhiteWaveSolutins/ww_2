@@ -42,11 +42,18 @@ class _GenerateDescriptionScreenState extends State<GenerateDescriptionScreen>
 
     controller = TabController(length: 3, vsync: this);
 
-    if ([TypeGenerate.text, TypeGenerate.website, TypeGenerate.phone].contains(widget.type)) {
+    if ([
+      TypeGenerate.text,
+      TypeGenerate.website,
+      TypeGenerate.phone,
+    ].contains(widget.type)) {
       checkName = true;
     }
 
-    if ([TypeGenerate.wifi, TypeGenerate.phone].contains(widget.type)) {
+    if ([
+      TypeGenerate.wifi,
+      TypeGenerate.phone,
+    ].contains(widget.type)) {
       checkText = true;
     }
 

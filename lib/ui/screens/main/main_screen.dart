@@ -9,7 +9,6 @@ import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/images.dart';
 import 'package:ww_2/ui/resurses/text.dart';
-import 'package:ww_2/ui/screens/settings/settings_screen.dart';
 import 'package:ww_2/ui/state_manager/locale_code/action.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
 import 'package:ww_2/ui/widgets/buttons/button_with_icon.dart';
@@ -59,14 +58,7 @@ class _MainScreenState extends State<MainScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        useSafeArea: false,
-                        barrierColor: Colors.transparent,
-                        builder: (_) => const SettingsScreen(),
-                      );
-                    },
+                    onTap: getItService.navigatorService.onSettings,
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.white.withOpacity(.2),
@@ -84,11 +76,40 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
               const SizedBox(height: 16),
-              const SvgIcon(
-                icon: AppIcons.scanner,
-                size: 100,
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.black,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.primary,
+                          blurRadius: 53,
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      AppImages.scanner,
+                    ),
+                  ),
+                  Container(
+                    width: 190,
+                    height: 190,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppColors.primary,
+                        width: 3,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -106,6 +127,12 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(height: 16),
+              ButtonWithIcon(
+                onPressed: getItService.navigatorService.onScan,
+                title: 'SCANNING CODE',
+                icon: AppIcons.qrCode,
               ),
               const SizedBox(height: 28),
               Row(
@@ -140,12 +167,6 @@ class _MainScreenState extends State<MainScreen> {
                     isPay: !offSubscribe,
                   ),
                 ],
-              ),
-              const SizedBox(height: 40),
-              ButtonWithIcon(
-                onPressed: getItService.navigatorService.onScan,
-                title: 'Scan',
-                icon: AppIcons.qrCode,
               ),
             ],
           ),

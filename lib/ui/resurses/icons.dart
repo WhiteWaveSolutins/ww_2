@@ -9,6 +9,8 @@ class AppIcons {
   static const star = 'assets/icons/star.svg';
   static const starSolid = 'assets/icons/star_solid.svg';
   static const apple = 'assets/icons/apple.svg';
+  static const sort = 'assets/icons/sort.svg';
+  static const filter = 'assets/icons/filter_alt.svg';
   static const airplane = 'assets/icons/airplane.svg';
   static const location = 'assets/icons/location.svg';
   static const mac = 'assets/icons/mac.svg';
@@ -26,6 +28,8 @@ class AppIcons {
   static const copy = 'assets/icons/copy.svg';
   static const crow = 'assets/icons/crow.svg';
   static const document = 'assets/icons/document.svg';
+  static const doc = 'assets/icons/doc.svg';
+  static const pr = 'assets/icons/pr.svg';
   static const fireSmall = 'assets/icons/fire-small.svg';
   static const gift = 'assets/icons/gift.svg';
   static const noAdd = 'assets/icons/no-add.svg';
@@ -34,7 +38,13 @@ class AppIcons {
   static const stars = 'assets/icons/stars.svg';
   static const frame = 'assets/icons/frame.svg';
   static const eyes = 'assets/icons/eyes.svg';
+  static const circleLeft = 'assets/icons/circle_left.svg';
+  static const trash = 'assets/icons/trash.svg';
+  static const image = 'assets/icons/image.svg';
+  static const light = 'assets/icons/light.svg';
+  static const lightOff = 'assets/icons/light_off.svg';
   static const colorSmall = 'assets/icons/color-small.svg';
+  static const support = 'assets/icons/support.svg';
 }
 
 class SocialMedia {

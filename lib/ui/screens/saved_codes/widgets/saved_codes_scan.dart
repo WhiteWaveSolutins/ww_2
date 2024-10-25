@@ -20,7 +20,7 @@ class SavedCodesScan extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         GradientText.primary(
-          'No saved codes',
+          'It\'s empty',
           style: AppText.text16,
           textAlign: TextAlign.center,
         ),
@@ -29,7 +29,7 @@ class SavedCodesScan extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: ButtonWithIcon(
             onPressed: getItService.navigatorService.onScan,
-            title: 'Scan',
+            title: 'SCANNING CODE',
             icon: AppIcons.qrCode,
           ),
         ),
