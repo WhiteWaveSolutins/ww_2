@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:ww_2/domain/di/locator.dart';
 import 'package:ww_2/route.dart';
@@ -21,7 +22,8 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  final bindings = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: bindings);
   HttpOverrides.global = MyHttpOverrides();
   final locator = LocatorService();
 

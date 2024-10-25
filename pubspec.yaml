@@ -44,6 +44,7 @@ dependencies:
   json_serializable: ^6.8.0
   sqlite3_flutter_libs: ^0.5.10
   barcode_widget: ^2.0.4
+  flutter_native_splash: ^2.4.2
 
 dev_dependencies:
   build_runner: ^2.4.9
@@ -57,6 +58,10 @@ flutter_icons:
   android: true
   remove_alpha_ios: true
   ios: true
+
+flutter_native_splash:
+  image: "assets/logo/icon_rounded.png"
+  color: '#0F0F10'
 
 flutter_gen:
   integrations:

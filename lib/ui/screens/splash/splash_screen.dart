@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:ww_2/data/services/shared_preferences_service.dart';
 import 'package:ww_2/ui/screens/main/main_screen.dart';
 import 'package:ww_2/ui/screens/onboarding/onboarding_screen.dart';
@@ -27,14 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
       (Route<dynamic> route) => false,
     );
+    FlutterNativeSplash.remove();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CupertinoActivityIndicator(
-        color: Colors.white,
-      ),
-    );
+    return const Scaffold();
   }
 }
