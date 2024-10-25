@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart' as cp;
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
@@ -69,7 +70,10 @@ class _PickCountryModalState extends State<PickCountryModal> {
                       countries = cp.CountryManager()
                           .countries
                           .where((e) =>
-                              e.countryName?.toLowerCase().contains(data.toLowerCase()) ?? false)
+                              e.countryName
+                                  ?.toLowerCase()
+                                  .contains(data.toLowerCase()) ??
+                              false)
                           .toList();
                     }
                     setState(() {});
@@ -95,7 +99,10 @@ class _PickCountryModalState extends State<PickCountryModal> {
               const SizedBox(height: 16),
               if (isLoading)
                 const Center(
-                  child: CircularProgressIndicator(),
+                  child: CupertinoActivityIndicator(
+                    radius: 20,
+                    color: AppColors.primary,
+                  ),
                 )
               else if (countries.isEmpty)
                 Text(

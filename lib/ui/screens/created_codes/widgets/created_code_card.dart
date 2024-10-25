@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ww_2/data/models/qr_code/qr_code.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
@@ -15,8 +16,10 @@ class CreatedCodeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => getItService.navigatorService.onQrCode(qr: qr),
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      minSize: 1,
+      onPressed: () => getItService.navigatorService.onQrCode(qr: qr),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -28,11 +31,11 @@ class CreatedCodeCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: AppColors.primary),
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
                 child: Image.memory(
                   qr.image,
                   width: 65,

@@ -128,19 +128,29 @@ class _SavedCodesScreenState extends State<SavedCodesScreen> {
       body: StoreConnector<AppState, LocalCodeListState>(
         converter: (store) => store.state.savedCodeListState,
         builder: (context, state) {
-          if (state.isLoading) return const Center(child: CircularProgressIndicator());
+          if (state.isLoading) {
+            return const Center(
+                child: CupertinoActivityIndicator(
+              radius: 20,
+            ));
+          }
           if (state.isError) return Center(child: Text(state.errorMessage));
           var showCodes = <LocalBarcode>[];
           if (selectedTypes.isEmpty) {
             showCodes = state.codes.toList();
           } else {
-            showCodes = state.codes.where((e) => selectedTypes.contains(e.type)).toList();
+            showCodes = state.codes
+                .where((e) => selectedTypes.contains(e.type))
+                .toList();
           }
           if (controller.text.isNotEmpty) {
-            showCodes = showCodes.where((e) => e.title.contains(controller.text)).toList();
+            showCodes = showCodes
+                .where((e) => e.title.contains(controller.text))
+                .toList();
           }
           final now = DateTime.now();
-          showCodes.sort((a, b) => (a.created ?? now).compareTo(b.created ?? now));
+          showCodes
+              .sort((a, b) => (a.created ?? now).compareTo(b.created ?? now));
           if (!sortDate) showCodes = showCodes.reversed.toList();
           showCodes.sort((a, b) => (a.title).compareTo(b.title));
           if (!sortName) showCodes = showCodes.reversed.toList();
@@ -183,7 +193,8 @@ class _SavedCodesScreenState extends State<SavedCodesScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: DeleteDismissible(
-                        onDelete: () => getItService.localCodeUseCase.deleteSave(code),
+                        onDelete: () =>
+                            getItService.localCodeUseCase.deleteSave(code),
                         child: SavedCodeCard(localBarcode: code),
                       ),
                     ),
@@ -251,7 +262,8 @@ class _Filter extends StatelessWidget {
                               color: Colors.transparent,
                               padding: const EdgeInsets.all(10),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     typeCodeToIcon(TypeCode.values[i]),
@@ -265,7 +277,10 @@ class _Filter extends StatelessWidget {
                                     ),
                                   ),
                                   Opacity(
-                                    opacity: selected.contains(TypeCode.values[i]) ? 1 : 0,
+                                    opacity:
+                                        selected.contains(TypeCode.values[i])
+                                            ? 1
+                                            : 0,
                                     child: const BoxActive(),
                                   ),
                                 ],
@@ -354,7 +369,8 @@ class _SortState extends State<_Sort> {
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(),
                                     Text(
@@ -379,7 +395,8 @@ class _SortState extends State<_Sort> {
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(),
                                     Text(
@@ -428,7 +445,8 @@ class _SortState extends State<_Sort> {
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(),
                                     Text(
@@ -436,7 +454,11 @@ class _SortState extends State<_Sort> {
                                       style: AppText.text3,
                                     ),
                                     Opacity(
-                                      opacity: (isDate ? widget.sortDate : widget.sortName) ? 0 : 1,
+                                      opacity: (isDate
+                                              ? widget.sortDate
+                                              : widget.sortName)
+                                          ? 0
+                                          : 1,
                                       child: const BoxActive(),
                                     ),
                                   ],
@@ -460,7 +482,8 @@ class _SortState extends State<_Sort> {
                                 color: Colors.transparent,
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(),
                                     Text(
@@ -468,8 +491,11 @@ class _SortState extends State<_Sort> {
                                       style: AppText.text3,
                                     ),
                                     Opacity(
-                                      opacity:
-                                          !(isDate ? widget.sortDate : widget.sortName) ? 0 : 1,
+                                      opacity: !(isDate
+                                              ? widget.sortDate
+                                              : widget.sortName)
+                                          ? 0
+                                          : 1,
                                       child: const BoxActive(),
                                     ),
                                   ],

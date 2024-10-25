@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ww_2/data/api/links.dart';
 import 'package:ww_2/main.dart';
@@ -119,23 +120,28 @@ class BottomOnboarding extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
-            mainAxisAlignment:
-                offSubscribe ? MainAxisAlignment.spaceAround : MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: offSubscribe
+                ? MainAxisAlignment.spaceAround
+                : MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                onTap: () => launchUrl(
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                minSize: 1,
+                onPressed: () => launchUrl(
                   Uri.parse(AppLinks.terms),
-                  mode: LaunchMode.externalApplication,
+                  mode: LaunchMode.inAppWebView, 
                 ),
                 child: GradientText.primary(
                   'Terms of Use',
                   style: AppText.text3,
                 ),
               ),
-              GestureDetector(
-                onTap: () => launchUrl(
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                minSize: 1,
+                onPressed: () => launchUrl(
                   Uri.parse(AppLinks.privacy),
-                  mode: LaunchMode.externalApplication,
+                  mode: LaunchMode.inAppWebView, 
                 ),
                 child: GradientText.primary(
                   'Privacy Policy',

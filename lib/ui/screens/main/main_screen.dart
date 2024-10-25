@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -57,8 +58,10 @@ class _MainScreenState extends State<MainScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  GestureDetector(
-                    onTap: getItService.navigatorService.onSettings,
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    minSize: 1,
+                    onPressed: getItService.navigatorService.onSettings,
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.white.withOpacity(.2),
@@ -196,8 +199,10 @@ class _Button extends StatelessWidget {
       child: Stack(
         alignment: Alignment.topRight,
         children: [
-          GestureDetector(
-            onTap: onTap,
+          CupertinoButton(
+            padding: EdgeInsets.zero,
+            minSize: 1,
+            onPressed: onTap,
             child: Container(
               margin: const EdgeInsets.only(
                 top: 5,

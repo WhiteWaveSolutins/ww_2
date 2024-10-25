@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/domain/enums/type_generate.dart';
@@ -19,10 +20,9 @@ class GenerateScreen extends StatelessWidget {
         leading: const LeftButton(),
       ),
       body: const Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all( 16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [
@@ -72,8 +72,10 @@ class _Block extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      minSize: 1,
+      onPressed: () {
         if (type == TypeGenerate.event) {
           getItService.navigatorService.onGenerateDescriptionEvent();
           return;
@@ -86,6 +88,7 @@ class _Block extends StatelessWidget {
       },
       child: Container(
         height: 137,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.white.withOpacity(.2),
           borderRadius: BorderRadius.circular(20),
@@ -103,7 +106,9 @@ class _Block extends StatelessWidget {
               type != TypeGenerate.phone
                   ? SvgIcon(
                       icon: typeGenerateToIcon(type),
-                      size: [TypeGenerate.text, TypeGenerate.sms].contains(type) ? 60 : 70,
+                      size: [TypeGenerate.text, TypeGenerate.sms].contains(type)
+                          ? 60
+                          : 70,
                     )
                   : Image.asset(
                       typeGenerateToIcon(type),

@@ -107,7 +107,7 @@ class SettingsScreen extends StatelessWidget {
               _Button(
                 onTap: () => launchUrl(
                   Uri.parse(AppLinks.terms),
-                  mode: LaunchMode.externalApplication,
+                  mode: LaunchMode.inAppWebView, 
                 ),
                 padding: 3,
                 icon: AppIcons.pr,
@@ -116,7 +116,7 @@ class SettingsScreen extends StatelessWidget {
               _Button(
                 onTap: () => launchUrl(
                   Uri.parse(AppLinks.privacy),
-                  mode: LaunchMode.externalApplication,
+                  mode: LaunchMode.inAppWebView, 
                 ),
                 icon: AppIcons.doc,
                 title: 'Privacy Policy',
@@ -145,8 +145,10 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      minSize: 1,
+      onPressed: onTap,
       child: Container(
         color: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 8),

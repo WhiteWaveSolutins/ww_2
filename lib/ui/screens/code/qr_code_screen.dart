@@ -76,7 +76,12 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
         body: StoreConnector<AppState, QrCodeState>(
           converter: (store) => store.state.qrCodeGeneratedState,
           builder: (context, state) {
-            if (state.isLoading) return const Center(child: CircularProgressIndicator());
+            if (state.isLoading) {
+              return const Center(
+                  child: CupertinoActivityIndicator(
+                radius: 20,
+              ));
+            }
 
             if (state.isError) return Center(child: Text(state.errorMessage));
             return ListView(
@@ -144,7 +149,8 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                       child: SimpleButton(
                         onTap: isCustomized
                             ? () {
-                                getItService.qrCodeUseCase.updateSave(state.code!);
+                                getItService.qrCodeUseCase
+                                    .updateSave(state.code!);
                                 getItService.navigatorService.onFirst();
                                 getItService.navigatorService.onCreated();
                               }
