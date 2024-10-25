@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_gen_runner:
 
 flutter_icons:
-  image_path: "assets/logo/logo.png"
+  image_path: "assets/logo/icons2.png"
   android: true
   remove_alpha_ios: true
   ios: true
