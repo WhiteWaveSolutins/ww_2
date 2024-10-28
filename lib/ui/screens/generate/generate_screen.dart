@@ -19,8 +19,8 @@ class GenerateScreen extends StatelessWidget {
         centerTitle: true,
         leading: const LeftButton(),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all( 16),
+      body: const SingleChildScrollView(
+         padding: EdgeInsets.all( 16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -47,7 +47,7 @@ class GenerateScreen extends StatelessWidget {
                 Expanded(child: _Block(type: TypeGenerate.phone)),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(child: _Block(type: TypeGenerate.payment)),

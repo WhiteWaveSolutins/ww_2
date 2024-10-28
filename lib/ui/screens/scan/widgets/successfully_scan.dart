@@ -31,98 +31,101 @@ class SuccessfullyScan extends StatelessWidget {
           topLeft: Radius.circular(20),
         ),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: getItService.navigatorService.onPop,
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.grey,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: getItService.navigatorService.onPop,
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.grey,
+                    ),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.clear,
+                      size: 15,
+                      color: AppColors.white,
+                    ),
                   ),
-                  alignment: Alignment.center,
-                  child: const Icon(
-                    Icons.clear,
-                    size: 15,
-                    color: AppColors.white,
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            AppBarcode(
+              padding: (barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode) !=
+                      ms.BarcodeFormat.qrCode
+                  ? 20
+                  : 5,
+              data: LocalBarcodeData(
+                data: barcode.barcodes.firstOrNull?.displayValue ?? '',
+                format: barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode,
+              ),
+            ),
+            const SizedBox(height: 16),
+            GradientWidget.primary(
+              const SvgIcon(
+                icon: AppIcons.fire,
+                size: 50,
+              ),
+            ),
+            const SizedBox(height: 8),
+            GradientText.primary(
+              'Successfully',
+              style: AppText.h1.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const Spacer(),
+            SimpleButton(
+              onTap: () async {
+                final url = Uri.parse(barcode.barcodes.firstOrNull?.displayValue ?? '');
+                await launchUrl(
+                  url,
+                  mode: LaunchMode.externalApplication,
+                );
+              },
+              title: 'Open in browser',
+              icon: AppIcons.globe,
+              centerTitle: true,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: SimpleButton(
+                    onTap: Navigator.of(context).pop,
+                    title: 'Again',
+                    centerTitle: true,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          AppBarcode(
-            padding: (barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode) !=
-                    ms.BarcodeFormat.qrCode
-                ? 20
-                : 5,
-            data: LocalBarcodeData(
-              data: barcode.barcodes.firstOrNull?.displayValue ?? '',
-              format: barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode,
-            ),
-          ),
-          const SizedBox(height: 16),
-          GradientWidget.primary(
-            const SvgIcon(
-              icon: AppIcons.fire,
-              size: 50,
-            ),
-          ),
-          const SizedBox(height: 8),
-          GradientText.primary(
-            'Successfully',
-            style: AppText.h1.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const Spacer(),
-          SimpleButton(
-            onTap: () async {
-              final url = Uri.parse(barcode.barcodes.firstOrNull?.displayValue ?? '');
-              await launchUrl(
-                url,
-                mode: LaunchMode.externalApplication,
-              );
-            },
-            title: 'Open in browser',
-            icon: AppIcons.globe,
-            centerTitle: true,
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: SimpleButton(
-                  onTap: Navigator.of(context).pop,
-                  title: 'Again',
-                  centerTitle: true,
+                const SizedBox(width: 8),
+                Expanded(
+                  child: SimpleButton(
+                    onTap: () {
+                      getItService.navigatorService.onFirst();
+                      getItService.navigatorService.onSaveCode(
+                        barcode: LocalBarcode(
+                          data: barcode.barcodes.firstOrNull?.displayValue ?? '',
+                          format: barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode,
+                        ),
+                      );
+                    },
+                    title: 'Save',
+                    icon: AppIcons.starSolid,
+                    gradient: true,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: SimpleButton(
-                  onTap: () {
-                    getItService.navigatorService.onFirst();
-                    getItService.navigatorService.onSaveCode(
-                      barcode: LocalBarcode(
-                        data: barcode.barcodes.firstOrNull?.displayValue ?? '',
-                        format: barcode.barcodes.firstOrNull?.format ?? ms.BarcodeFormat.qrCode,
-                      ),
-                    );
-                  },
-                  title: 'Save',
-                  icon: AppIcons.starSolid,
-                  gradient: true,
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

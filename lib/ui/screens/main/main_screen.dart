@@ -48,130 +48,134 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ImageBack(
-        image: AppImages.mainBack,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 11),
-          child: Column(
-            children: [
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    minSize: 1,
-                    onPressed: getItService.navigatorService.onSettings,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withOpacity(.2),
-                        border: Border.all(color: AppColors.white),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(13),
-                      child: const SvgIcon(
-                        icon: AppIcons.setting,
-                        color: AppColors.white,
-                        size: 24,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.black,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary,
-                          blurRadius: 53,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(),
+        child: ImageBack(
+          image: AppImages.mainBack,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16, right: 11),
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      minSize: 1,
+                      onPressed: getItService.navigatorService.onSettings,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withOpacity(.2),
+                          border: Border.all(color: AppColors.white),
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      ],
-                    ),
-                    child: Image.asset(
-                      AppImages.scanner,
-                    ),
-                  ),
-                  Container(
-                    width: 190,
-                    height: 190,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: AppColors.primary,
-                        width: 3,
+                        padding: const EdgeInsets.all(13),
+                        child: const SvgIcon(
+                          icon: AppIcons.setting,
+                          color: AppColors.white,
+                          size: 24,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 32),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'QR & Barcode',
-                    style: AppText.h2.copyWith(
-                      fontWeight: FontWeight.w600,
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: 200,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.black,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary,
+                            blurRadius: 53,
+                          ),
+                        ],
+                      ),
+                      child: Image.asset(
+                        AppImages.scanner,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  GradientText.primary(
-                    'Scaner',
-                    style: AppText.h2.copyWith(
-                      fontWeight: FontWeight.w600,
+                    Container(
+                      width: 190,
+                      height: 190,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.primary,
+                          width: 3,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              ButtonWithIcon(
-                onPressed: getItService.navigatorService.onScan,
-                title: 'SCANNING CODE',
-                icon: AppIcons.qrCode,
-              ),
-              const SizedBox(height: 28),
-              Row(
-                children: [
-                  _Button(
-                    title: 'Saved',
-                    icon: AppIcons.star,
-                    onTap: getItService.navigatorService.onSavedCodes,
-                  ),
-                  const SizedBox(width: 9),
-                  _Button(
-                    title: 'Scan history',
-                    icon: AppIcons.clock,
-                    onTap: getItService.navigatorService.onHistoryCodes,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  _Button(
-                    onTap: () => checkSubscribe(getItService.navigatorService.onGenerate),
-                    title: 'Generate',
-                    icon: AppIcons.generate,
-                    isPay: !offSubscribe,
-                  ),
-                  const SizedBox(width: 4),
-                  _Button(
-                    onTap: () => checkSubscribe(getItService.navigatorService.onCreated),
-                    title: 'Created',
-                    icon: AppIcons.layers,
-                    isPay: !offSubscribe,
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 32),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'QR & Barcode',
+                      style: AppText.h2.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    GradientText.primary(
+                      'Scaner',
+                      style: AppText.h2.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                ButtonWithIcon(
+                  onPressed: getItService.navigatorService.onScan,
+                  title: 'SCANNING CODE',
+                  icon: AppIcons.qrCode,
+                ),
+                const SizedBox(height: 28),
+                Row(
+                  children: [
+                    _Button(
+                      title: 'Saved',
+                      icon: AppIcons.star,
+                      onTap: getItService.navigatorService.onSavedCodes,
+                    ),
+                    const SizedBox(width: 9),
+                    _Button(
+                      title: 'Scan history',
+                      icon: AppIcons.clock,
+                      onTap: getItService.navigatorService.onHistoryCodes,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    _Button(
+                      onTap: () => checkSubscribe(getItService.navigatorService.onGenerate),
+                      title: 'Generate',
+                      icon: AppIcons.generate,
+                      isPay: !offSubscribe,
+                    ),
+                    const SizedBox(width: 4),
+                    _Button(
+                      onTap: () => checkSubscribe(getItService.navigatorService.onCreated),
+                      title: 'Created',
+                      icon: AppIcons.layers,
+                      isPay: !offSubscribe,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

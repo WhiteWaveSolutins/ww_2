@@ -58,14 +58,15 @@ class _PickerFrameModalState extends State<PickerFrameModal> {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 8,
-                    mainAxisExtent: 110,
+                    mainAxisExtent: 120,
                     mainAxisSpacing: 8,
                     crossAxisCount: 4,
                     crossAxisSpacing: 8,
                   ),
                   itemCount: CustomizeFrame.values.length,
                   itemBuilder: (context, index) => GestureDetector(
-                    onTap: () => setState(() => frame = CustomizeFrame.values[index]),
+                    onTap: () =>
+                        setState(() => frame = CustomizeFrame.values[index]),
                     child: Container(
                       padding: const EdgeInsets.only(
                         top: 3,
@@ -93,6 +94,7 @@ class _PickerFrameModalState extends State<PickerFrameModal> {
                           ),
                           Text(
                             customizeFrameTitle(CustomizeFrame.values[index]),
+                            textAlign: TextAlign.center,
                             style: AppText.small.copyWith(
                               color: AppColors.black,
                             ),
