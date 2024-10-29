@@ -295,8 +295,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/browser.svg
   SvgGenImage get browser => const SvgGenImage('assets/icons/browser.svg');
 
+  /// File path: assets/icons/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
+
   /// File path: assets/icons/chat.svg
   SvgGenImage get chat => const SvgGenImage('assets/icons/chat.svg');
+
+  /// File path: assets/icons/circle_left.svg
+  SvgGenImage get circleLeft =>
+      const SvgGenImage('assets/icons/circle_left.svg');
 
   /// File path: assets/icons/clock.svg
   SvgGenImage get clock => const SvgGenImage('assets/icons/clock.svg');
@@ -314,8 +321,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/copy.svg
   SvgGenImage get copy => const SvgGenImage('assets/icons/copy.svg');
 
+  /// File path: assets/icons/credit_card.svg
+  SvgGenImage get creditCard =>
+      const SvgGenImage('assets/icons/credit_card.svg');
+
   /// File path: assets/icons/crow.svg
   SvgGenImage get crow => const SvgGenImage('assets/icons/crow.svg');
+
+  /// File path: assets/icons/doc.svg
+  SvgGenImage get doc => const SvgGenImage('assets/icons/doc.svg');
 
   /// File path: assets/icons/document.svg
   SvgGenImage get document => const SvgGenImage('assets/icons/document.svg');
@@ -325,6 +339,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/eyes.svg
   SvgGenImage get eyes => const SvgGenImage('assets/icons/eyes.svg');
+
+  /// File path: assets/icons/filter_alt.svg
+  SvgGenImage get filterAlt => const SvgGenImage('assets/icons/filter_alt.svg');
 
   /// File path: assets/icons/fire-small.svg
   SvgGenImage get fireSmall => const SvgGenImage('assets/icons/fire-small.svg');
@@ -348,8 +365,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/globe.svg
   SvgGenImage get globe => const SvgGenImage('assets/icons/globe.svg');
 
+  /// File path: assets/icons/image.svg
+  SvgGenImage get image => const SvgGenImage('assets/icons/image.svg');
+
   /// File path: assets/icons/layers.svg
   SvgGenImage get layers => const SvgGenImage('assets/icons/layers.svg');
+
+  /// File path: assets/icons/light.svg
+  SvgGenImage get light => const SvgGenImage('assets/icons/light.svg');
+
+  /// File path: assets/icons/light_off.svg
+  SvgGenImage get lightOff => const SvgGenImage('assets/icons/light_off.svg');
 
   /// File path: assets/icons/no-add.svg
   SvgGenImage get noAdd => const SvgGenImage('assets/icons/no-add.svg');
@@ -360,6 +386,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/playstation.svg
   SvgGenImage get playstation =>
       const SvgGenImage('assets/icons/playstation.svg');
+
+  /// File path: assets/icons/pr.svg
+  SvgGenImage get pr => const SvgGenImage('assets/icons/pr.svg');
 
   /// File path: assets/icons/qr_code.svg
   SvgGenImage get qrCode => const SvgGenImage('assets/icons/qr_code.svg');
@@ -383,6 +412,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/sms.svg
   SvgGenImage get sms => const SvgGenImage('assets/icons/sms.svg');
 
+  /// File path: assets/icons/sort.svg
+  SvgGenImage get sort => const SvgGenImage('assets/icons/sort.svg');
+
   /// File path: assets/icons/star.svg
   SvgGenImage get star => const SvgGenImage('assets/icons/star.svg');
 
@@ -392,8 +424,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/stars.svg
   SvgGenImage get stars => const SvgGenImage('assets/icons/stars.svg');
 
+  /// File path: assets/icons/support.svg
+  SvgGenImage get support => const SvgGenImage('assets/icons/support.svg');
+
   /// File path: assets/icons/text.svg
   SvgGenImage get text => const SvgGenImage('assets/icons/text.svg');
+
+  /// File path: assets/icons/trash.svg
+  SvgGenImage get trash => const SvgGenImage('assets/icons/trash.svg');
 
   /// File path: assets/icons/version.svg
   SvgGenImage get version => const SvgGenImage('assets/icons/version.svg');
@@ -405,16 +443,21 @@ class $AssetsIconsGen {
   List<SvgGenImage> get values => [
         apple,
         browser,
+        calendar,
         chat,
+        circleLeft,
         clock,
         close,
         colorSmall,
         color,
         copy,
+        creditCard,
         crow,
+        doc,
         document,
         email,
         eyes,
+        filterAlt,
         fireSmall,
         fire,
         frame,
@@ -422,10 +465,14 @@ class $AssetsIconsGen {
         generateFill,
         gift,
         globe,
+        image,
         layers,
+        light,
+        lightOff,
         noAdd,
         phone,
         playstation,
+        pr,
         qrCode,
         save,
         scanerLogo,
@@ -433,10 +480,13 @@ class $AssetsIconsGen {
         share,
         shield,
         sms,
+        sort,
         star,
         starSolid,
         stars,
+        support,
         text,
+        trash,
         version,
         wiFi
       ];
@@ -497,6 +547,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/phone.png
   AssetGenImage get phone => const AssetGenImage('assets/images/phone.png');
 
+  /// File path: assets/images/pict.png
+  AssetGenImage get pict => const AssetGenImage('assets/images/pict.png');
+
+  /// File path: assets/images/scaner-logo.png
+  AssetGenImage get scanerLogo =>
+      const AssetGenImage('assets/images/scaner-logo.png');
+
   /// File path: assets/images/shield.png
   AssetGenImage get shield => const AssetGenImage('assets/images/shield.png');
 
@@ -520,6 +577,8 @@ class $AssetsImagesGen {
         onboarding3,
         onboarding4,
         phone,
+        pict,
+        scanerLogo,
         shield,
         web
       ];
@@ -528,11 +587,24 @@ class $AssetsImagesGen {
 class $AssetsLogoGen {
   const $AssetsLogoGen();
 
+  /// File path: assets/logo/icon.png
+  AssetGenImage get icon => const AssetGenImage('assets/logo/icon.png');
+
+  /// File path: assets/logo/icon_rounded.png
+  AssetGenImage get iconRounded =>
+      const AssetGenImage('assets/logo/icon_rounded.png');
+
+  /// File path: assets/logo/icons2.png
+  AssetGenImage get icons2 => const AssetGenImage('assets/logo/icons2.png');
+
   /// File path: assets/logo/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/logo/logo.png');
 
+  /// File path: assets/logo/logo2.png
+  AssetGenImage get logo2 => const AssetGenImage('assets/logo/logo2.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [icon, iconRounded, icons2, logo, logo2];
 }
 
 class $AssetsSocialMediaGen {
