@@ -10,6 +10,7 @@ import 'package:ww_2/ui/screens/onboarding/widgets/onboarding_widget.dart';
 import 'package:ww_2/ui/state_manager/paywall/action.dart';
 import 'package:ww_2/ui/state_manager/paywall/state.dart';
 import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/action.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -93,9 +94,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             subtitle: 'Start your 3-day free trial.\nThan 4.99\$ per week',
                             subtitleTapper: 'Or proceed with limited version',
                             buttonText: state.paywalls.first.buttonLabel,
+                            tapperOnTap: getItService.navigatorService.onMain,
                             onTapButton: () {
-                              getItService.navigatorService.onMain();
-                              getItService.navigatorService.onGetPremium();
+                              final store = StoreProvider.of<AppState>(context, listen: false);
+                              store.dispatch(
+                                PurchaseSubscriptionAction(
+                                  onFinish: Navigator.of(context).pop,
+                                  onError: (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => CupertinoAlertDialog(
+                                        title: const Text("Some Error"),
+                                        content: Text(e),
+                                        actions: <Widget>[
+                                          CupertinoDialogAction(
+                                            onPressed: Navigator.of(context).pop,
+                                            isDefaultAction: true,
+                                            child: const Text(
+                                              "Ok",
+                                              style: TextStyle(color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  onLoad: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const Center(
+                                        child: CupertinoActivityIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  productId: state.paywalls.first.productId,
+                                ),
+                              );
                             },
                           );
                         },
