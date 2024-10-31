@@ -7,6 +7,10 @@ class ConfigService {
 
   late final FlagsmithClient _flagsmithClient;
 
+  ConfigService._();
+
+  static final instance = ConfigService._();
+
   late final String _apphudKey;
 
   late final String _privacyLink;
