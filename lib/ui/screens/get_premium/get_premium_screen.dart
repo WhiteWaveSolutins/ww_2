@@ -106,7 +106,7 @@ class GetPremiumScreen extends StatelessWidget {
                     const SizedBox(height: 24),
                     for (int i = 0; i < state.paywalls.last.benefits.length; i++) ...[
                       _Prem(
-                        title: state.paywalls.last.benefits.first,
+                        title: state.paywalls.last.benefits[i],
                         icon: i >= 4 ? _icons.last : _icons[i],
                       ),
                       const SizedBox(height: 8),
