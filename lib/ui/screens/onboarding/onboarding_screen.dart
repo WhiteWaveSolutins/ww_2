@@ -52,6 +52,56 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     : StoreConnector<AppState, PaywallListState>(
                         converter: (store) => store.state.paywallListState,
                         builder: (context, state) {
+                          return OnboardingWidget(
+                            image: Image.asset(
+                              AppImages.onboarding4,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                            title: 'state.paywalls.first.title',
+                            subtitle: 'Start your 3-day free trial.\nThan 4.99\$ per week',
+                            subtitleTapper: 'Or proceed with limited version',
+                            buttonText: 'state.paywalls.first.buttonLabel',
+                            tapperOnTap: getItService.navigatorService.onMain,
+                            onTapButton: () {
+                              final store = StoreProvider.of<AppState>(context, listen: false);
+                              store.dispatch(
+                                PurchaseSubscriptionAction(
+                                  onFinish: getItService.navigatorService.onMain,
+                                  onError: (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => CupertinoAlertDialog(
+                                        title: const Text("Some Error"),
+                                        content: Text(e),
+                                        actions: <Widget>[
+                                          CupertinoDialogAction(
+                                            onPressed: Navigator.of(context).pop,
+                                            isDefaultAction: true,
+                                            child: const Text(
+                                              "Ok",
+                                              style: TextStyle(color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  onLoad: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) => const Center(
+                                        child: CupertinoActivityIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  productId: 'state.paywalls.first.productId',
+                                ),
+                              );
+                            },
+                          );
                           if (state.isLoading) {
                             return const Center(
                               child: CupertinoActivityIndicator(

@@ -77,13 +77,13 @@ class SubscriptionService {
     }
   }
 
-  Future<Answer<ApphudPurchaseResult>> purchase(String productId) async {
+  Future<ApphudPurchaseResult> purchase(String productId) async {
     try {
       final res = await Apphud.purchase(productId: productId);
-      return Answer(data: res);
+      return res;
     } catch (e) {
       _log(message: e.toString());
-      return Answer(error: e.toString());
+      rethrow;
     }
   }
 
