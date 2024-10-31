@@ -1,55 +1,42 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/material.dart';
-import 'package:ww_2/data/api/api_settings.dart';
-import 'package:ww_2/data/api/links.dart';
-class RemoteConfigService {
-  RemoteConfigService() {
-    remoteConfig = FirebaseRemoteConfig.instance;
-    init();
+import 'dart:convert';
+
+import 'package:flagsmith/flagsmith.dart';
+
+class ConfigService {
+  static const _apikey = '2w6cBccZar9oFQoqpSSWSP';
+
+  late final FlagsmithClient _flagsmithClient;
+
+  late final String _apphudKey;
+
+  late final String _privacyLink;
+  late final String _termsLink;
+
+  Future<ConfigService> init() async {
+    _flagsmithClient = await FlagsmithClient.init(
+      apiKey: _apikey,
+      config: const FlagsmithConfig(
+        caches: true,
+      ),
+    );
+    await _flagsmithClient.getFeatureFlags(reload: true);
+
+    final config = jsonDecode(
+        await _flagsmithClient.getFeatureFlagValue(ConfigKey.config.name) ??
+            '') as Map<String, dynamic>;
+
+    _apphudKey = config[ConfigKey.apphudKey.name] as String;
+    _privacyLink = config[ConfigKey.privacyLink.name] as String;
+    _termsLink = config[ConfigKey.termsLink.name] as String;
+    return this;
   }
-  late FirebaseRemoteConfig remoteConfig;
-  Future<void> init() async {
-    try {
-      await remoteConfig.ensureInitialized();
-      await remoteConfig.setConfigSettings(
-        RemoteConfigSettings(
-          fetchTimeout: const Duration(seconds: 10),
-          minimumFetchInterval: Duration.zero,
-        ),
-      );
-      await remoteConfig.fetchAndActivate();
-    } on FirebaseException catch (e, st) {
-      debugPrint(e.toString());
-      debugPrint(st.toString());
-    }
-  }
-  String get termsLink {
-    try {
-      return remoteConfig.getString('termsLink');
-    } catch (_) {
-      return AppLinks.terms;
-    }
-  }
-  String get privacyLink {
-    try {
-      return remoteConfig.getString('privacyLink');
-    } catch (_) {
-      return AppLinks.privacy;
-    }
-  }
-  String get aboutUsLink {
-    try {
-      return remoteConfig.getString('aboutUsLink');
-    } catch (_) {
-      return AppLinks.about;
-    }
-  }
-  String get apphudKey {
-    try {
-      return remoteConfig.getString('apphudKey');
-    } catch (_) {
-      return ApiSettings.apphudKey;
-    }
-  }
+
+  void closeClient() => _flagsmithClient.close();
+
+  String get apphudKey => _apphudKey;
+
+  String get privacyLink => _privacyLink;
+  String get termsLink => _termsLink;
 }
+
+enum ConfigKey { config, apphudKey, privacyLink, termsLink }

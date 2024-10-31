@@ -6,7 +6,7 @@ import 'package:ww_2/data/models/answer/answer.dart';
 import 'package:ww_2/data/models/paywalls/paywall.dart';
 import 'package:ww_2/data/services/remote_config_service.dart';
 class SubscriptionService {
-  final RemoteConfigService remoteConfigService;
+  final ConfigService remoteConfigService;
 
   //late ApphudUser _user;
   SubscriptionService({required this.remoteConfigService}) {
