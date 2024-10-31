@@ -87,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
                 onTap: () {
                   EmailService.launchEmailSubmission(
                     toEmail: 'sertachindistan0617@outlook.com',
-                    subject: "Conntact with support",
+                    subject: "Contact with support",
                     body: "\"Your message here\"",
                   );
                 },

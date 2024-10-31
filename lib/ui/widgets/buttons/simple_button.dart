@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:gaimon/gaimon.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/text.dart';
 import 'package:ww_2/ui/widgets/gradient_widget.dart';
@@ -46,7 +47,10 @@ class SimpleButton extends StatelessWidget {
     }
 
     return CupertinoButton(
-      onPressed: onTap,
+      onPressed: () {
+        Gaimon.selection();
+        onTap?.call();
+      },
       minSize: 1,
       padding: EdgeInsets.zero,
       child: Stack(

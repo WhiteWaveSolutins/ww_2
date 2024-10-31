@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:gaimon/gaimon.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/text.dart';
 
@@ -15,7 +16,10 @@ class MainButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      onPressed: onPressed,
+      onPressed: () {
+        Gaimon.selection();
+        onPressed?.call();
+      },
       minSize: 1,
       padding: EdgeInsets.zero,
       child: Container(

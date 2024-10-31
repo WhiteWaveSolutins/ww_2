@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:email_validator/email_validator.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class EmailService {
   static bool vlidateEmail(String email) => EmailValidator.validate(email);
@@ -8,41 +8,20 @@ class EmailService {
   static Future<void> launchEmailSubmission({
     required String toEmail,
     required String subject,
-    String? body,
+    String body = '',
     VoidCallback? errorCallback,
     VoidCallback? doneCallback,
   }) async {
-    final mailUrl = _getEmailUrl(toEmail: toEmail, subject: subject, body: body);
+    final mail = Email(
+      subject: subject,
+      recipients: [toEmail],
+      body: body,
+    );
     try {
-      await launchUrl(mailUrl);
+      await FlutterEmailSender.send(mail);
       doneCallback?.call();
     } catch (e) {
       errorCallback?.call();
     }
-  }
-
-  static Uri _getEmailUrl({
-    required String toEmail,
-    required String subject,
-    String? body,
-  }) {
-    final url = Uri(
-      scheme: 'mailto',
-      path: toEmail,
-      query: _encodeQueryParameters({
-        'subject': subject,
-        'body': body ?? '',
-      }),
-    );
-
-    return url;
-  }
-
-  /// Using `queryParameters` above encodes the text incorrectly.
-  /// We use `query` and this helper function to encode properly.
-  static String? _encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
   }
 }
