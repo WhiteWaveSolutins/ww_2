@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:ww_2/data/services/remote_config_service.dart';
 import 'package:ww_2/domain/di/locator.dart';
 import 'package:ww_2/route.dart';
 import 'package:ww_2/ui/resurses/theme.dart';
@@ -14,7 +15,8 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
@@ -22,6 +24,8 @@ void main() async {
   final bindings = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: bindings);
   HttpOverrides.global = MyHttpOverrides();
+  await ConfigService.instance.init();
+  addLifecycleHandler();
   final locator = LocatorService();
 
   FlutterError.onError = (details) {
@@ -102,6 +106,8 @@ class QrCodeScannerReaderScan extends StatelessWidget {
 
 void addLifecycleHandler() {
   WidgetsBinding.instance.addObserver(
-    AppLifecycleListener(onDetach: GetIt.instance<ConfigService>().closeClient),
+    AppLifecycleListener(
+      onDetach: ConfigService.instance.closeClient,
+    ),
   );
 }
