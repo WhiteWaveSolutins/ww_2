@@ -58,6 +58,7 @@ class QrCodeScannerReaderScan extends StatelessWidget {
         child: MaterialApp(
           navigatorKey: locator.navigatorKey,
           home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
           title: 'Qr code scanner - reader scan',
           theme: lightThemeData,
           onGenerateRoute: AppRoutes.onGenerateRoute,
