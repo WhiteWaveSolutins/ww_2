@@ -24,7 +24,7 @@ class SubscriptionMiddleware implements MiddlewareClass<AppState> {
         if (result.error == null) {
           store.dispatch(LoadSubscriptionAction());
         } else {
-          action.onError(result.error!.message ?? 'Сonnection error');
+          action.onError('Сonnection error');
         }
       });
     }
@@ -36,7 +36,7 @@ class SubscriptionMiddleware implements MiddlewareClass<AppState> {
         if (result.error == null) {
           store.dispatch(LoadSubscriptionAction());
         } else {
-          action.onError(result.error!.message ?? 'Сonnection error');
+          action.onError('Сonnection error');
         }
       });
     }
