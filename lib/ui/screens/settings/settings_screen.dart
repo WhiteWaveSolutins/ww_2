@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -41,6 +40,7 @@ class SettingsScreen extends StatelessWidget {
             builder: (context, state) {
               if (state.hasPremium) return const SizedBox();
               return Container(
+                height: 130,
                 padding: const EdgeInsets.only(right: 26),
                 decoration: BoxDecoration(
                   color: const Color(0xFF272727),
@@ -52,20 +52,33 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Row(
+                child: Stack(
+                  alignment: Alignment.centerLeft,
                   children: [
-                    Image.asset(AppImages.pict),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GradientText.primary(
-                            'Want more options?',
-                            style: AppText.text16,
-                          ),
-                          const SizedBox(height: 16),
-                          const _ButtonSign(),
-                        ],
+                    Image.asset(
+                      AppImages.pict,
+                      height: 130,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GradientText.primary(
+                              'Want more options?',
+                              maxLines: 1,
+                              style: AppText.text16.copyWith(
+                                height: 1,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const _ButtonSign(),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -157,7 +170,7 @@ class _Button extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       minSize: 1,
-      onPressed:() {
+      onPressed: () {
         Gaimon.selection();
         onTap?.call();
       },

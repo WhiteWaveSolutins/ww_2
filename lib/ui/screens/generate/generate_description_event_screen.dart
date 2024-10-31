@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ww_2/data/models/qr_code/data_qr_code.dart';
+import 'package:ww_2/data/services/shared_preferences_service.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/domain/enums/type_generate.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
 import 'package:ww_2/ui/widgets/buttons/left_button.dart';
 import 'package:ww_2/ui/widgets/buttons/main_button.dart';
 
@@ -59,14 +62,47 @@ class _GenerateDescriptionEventScreenState extends State<GenerateDescriptionEven
     super.dispose();
   }
 
-  void generate() {
-    final data = DataQrCode(
-      type: TypeGenerate.event,
-      name: nameController.text,
-      text: textController.text,
-      event: eventController.text,
-    );
-    getItService.navigatorService.onGenerateResult(data: data);
+  void generate() async {
+    final count = await SharedPreferencesService.getCountGeneration();
+    final store = StoreProvider.of<AppState>(context, listen: false);
+    if (count >= 3 && !store.state.subscriptionState.hasPremium) {
+      showDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Attention!"),
+          content: const Text('You are out of generation'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                getItService.navigatorService.onGetPremium();
+              },
+              isDefaultAction: true,
+              child: const Text(
+                "Get Premium",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            CupertinoDialogAction(
+              onPressed: Navigator.of(context).pop,
+              isDefaultAction: true,
+              child: const Text(
+                "Ok",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      final data = DataQrCode(
+        type: TypeGenerate.event,
+        name: nameController.text,
+        text: textController.text,
+        event: eventController.text,
+      );
+      getItService.navigatorService.onGenerateResult(data: data);
+    }
   }
 
   @override

@@ -46,13 +46,25 @@ class _GenerateCustomizeScreenState extends State<GenerateCustomizeScreen> {
 
   void save() async {
     final count = await SharedPreferencesService.getCountGeneration();
-    if (count >= 3) {
+    final store = StoreProvider.of<AppState>(context, listen: false);
+    if (count >= 3 && !store.state.subscriptionState.hasPremium) {
       showDialog(
         context: context,
         builder: (_) => CupertinoAlertDialog(
           title: const Text("Attention!"),
           content: const Text('You are out of generation'),
           actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.of(context).pop();
+                getItService.navigatorService.onGetPremium();
+              },
+              isDefaultAction: true,
+              child: const Text(
+                "Get Premium",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
             CupertinoDialogAction(
               onPressed: Navigator.of(context).pop,
               isDefaultAction: true,

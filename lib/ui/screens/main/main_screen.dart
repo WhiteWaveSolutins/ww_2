@@ -154,26 +154,14 @@ class _MainScreenState extends State<MainScreen> {
                     return Row(
                       children: [
                         _Button(
-                          onTap: () {
-                            if (state.hasPremium) {
-                              getItService.navigatorService.onGenerate();
-                            } else {
-                              getItService.navigatorService.onGetPremium();
-                            }
-                          },
+                          onTap: getItService.navigatorService.onGenerate,
                           title: 'Generate',
                           icon: AppIcons.generate,
                           isPay: !state.hasPremium,
                         ),
                         const SizedBox(width: 4),
                         _Button(
-                          onTap: () {
-                            if (state.hasPremium) {
-                              getItService.navigatorService.onCreated();
-                            } else {
-                              getItService.navigatorService.onGetPremium();
-                            }
-                          },
+                          onTap: getItService.navigatorService.onCreated,
                           title: 'Created',
                           icon: AppIcons.layers,
                           isPay: !state.hasPremium,

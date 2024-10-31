@@ -8,20 +8,24 @@ class GradientText extends StatelessWidget {
     required this.gradient,
     this.style,
     this.textAlign,
+    this.maxLines,
   });
 
   final String text;
   final TextStyle? style;
   final TextAlign? textAlign;
   final Gradient gradient;
+  final int? maxLines;
 
   factory GradientText.primary(
     String text, {
     TextStyle? style,
     TextAlign? textAlign,
+    int? maxLines,
   }) =>
       GradientText(
         text,
+        maxLines: maxLines,
         style: style,
         gradient: const LinearGradient(
           colors: [
@@ -56,6 +60,7 @@ class GradientText extends StatelessWidget {
       ),
       child: Text(
         text,
+        maxLines: maxLines,
         style: style,
         textAlign: textAlign,
       ),
