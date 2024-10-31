@@ -19,9 +19,9 @@ class Paywall {
   }) =>
       Paywall(
         productId: productId,
-        title: data['title'] ?? 'Unlock all functions',
-        subtitle: data['subtitle'] ?? 'Get more features with Premium experience!',
-        buttonLabel: data['buttonLabel'] ?? 'Try Free & Subscribe',
-        benefits: data['benefits'] ?? [],
+        title: (data['title'] as String?) ?? 'Unlock all functions',
+        subtitle: (data['subtitle'] as String?) ?? 'Get more features with Premium experience!',
+        buttonLabel: (data['buttonLabel'] as String?) ?? 'Try Free & Subscribe',
+        benefits: data['benefits'] as List<String>? ?? <String>[],
       );
 }
