@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ww_2/data/services/shared_preferences_service.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/domain/enums/type_generate.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
@@ -8,8 +9,43 @@ import 'package:ww_2/ui/widgets/buttons/left_button.dart';
 import 'package:ww_2/ui/widgets/gradient_widget.dart';
 import 'package:ww_2/ui/widgets/svg_icon.dart';
 
-class GenerateScreen extends StatelessWidget {
+class GenerateScreen extends StatefulWidget {
   const GenerateScreen({super.key});
+
+  @override
+  State<GenerateScreen> createState() => _GenerateScreenState();
+}
+
+class _GenerateScreenState extends State<GenerateScreen> {
+  @override
+  void initState() {
+    super.initState();
+    showDialogCount();
+  }
+
+  void showDialogCount() async {
+    final status = await SharedPreferencesService.getStatusShowCount();
+    if (!status) {
+      SharedPreferencesService.switchStatusShowCount();
+      showDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text('Attention!'),
+          content: const Text('You only have 3 generations for each day'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: Navigator.of(context).pop,
+              isDefaultAction: true,
+              child: const Text(
+                "Ok",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +56,7 @@ class GenerateScreen extends StatelessWidget {
         leading: const LeftButton(),
       ),
       body: const SingleChildScrollView(
-         padding: EdgeInsets.all( 16),
+        padding: EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -47,7 +83,7 @@ class GenerateScreen extends StatelessWidget {
                 Expanded(child: _Block(type: TypeGenerate.phone)),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             Row(
               children: [
                 Expanded(child: _Block(type: TypeGenerate.payment)),
@@ -106,9 +142,7 @@ class _Block extends StatelessWidget {
               type != TypeGenerate.phone
                   ? SvgIcon(
                       icon: typeGenerateToIcon(type),
-                      size: [TypeGenerate.text, TypeGenerate.sms].contains(type)
-                          ? 60
-                          : 70,
+                      size: [TypeGenerate.text, TypeGenerate.sms].contains(type) ? 60 : 70,
                     )
                   : Image.asset(
                       typeGenerateToIcon(type),

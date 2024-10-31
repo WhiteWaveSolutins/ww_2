@@ -57,9 +57,11 @@ class _GenerateResultScreenState extends State<GenerateResultScreen> {
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(
-                  child: CupertinoActivityIndicator(
-                radius: 20,
-              ));
+                child: CupertinoActivityIndicator(
+                  color: Colors.white,
+                  radius: 20,
+                ),
+              );
             }
             if (state.isError) return Center(child: Text(state.errorMessage));
             return ListView(
@@ -141,8 +143,7 @@ class _GenerateResultScreenState extends State<GenerateResultScreen> {
                   alignment: Alignment.centerRight,
                   children: [
                     MainButton(
-                      onPressed: () =>
-                          getItService.navigatorService.onGenerateCustomize(
+                      onPressed: () => getItService.navigatorService.onGenerateCustomize(
                         qr: state.code!,
                       ),
                       title: 'Сustomize',

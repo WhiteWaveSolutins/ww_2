@@ -1,16 +1,28 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/images.dart';
 import 'package:ww_2/ui/resurses/text.dart';
 import 'package:ww_2/ui/screens/onboarding/widgets/onboarding_widget.dart';
+import 'package:ww_2/ui/state_manager/paywall/action.dart';
+import 'package:ww_2/ui/state_manager/paywall/state.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
 import 'package:ww_2/ui/widgets/buttons/close_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
 import 'package:ww_2/ui/widgets/gradient_widget.dart';
 import 'package:ww_2/ui/widgets/image_back.dart';
 import 'package:ww_2/ui/widgets/svg_icon.dart';
+
+final _icons = [
+  AppIcons.fireSmall,
+  AppIcons.crow,
+  AppIcons.noAdd,
+  AppIcons.gift,
+];
 
 class GetPremiumScreen extends StatelessWidget {
   const GetPremiumScreen({super.key});
@@ -27,63 +39,88 @@ class GetPremiumScreen extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+            child: StoreConnector<AppState, PaywallListState>(
+              converter: (store) => store.state.paywallListState,
+              builder: (context, state) {
+                if (state.isLoading) {
+                  return const Center(
+                    child: CupertinoActivityIndicator(
+                      color: Colors.white,
+                      radius: 20,
+                    ),
+                  );
+                }
+                if (state.isError || state.paywalls.isEmpty) {
+                  return CupertinoAlertDialog(
+                    title: const Text("Some Error"),
+                    content: Text(
+                      state.isError ? state.errorMessage : 'Paywalls list is empty',
+                    ),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        onPressed: () {
+                          final store = StoreProvider.of<AppState>(
+                            context,
+                            listen: false,
+                          );
+                          store.dispatch(LoadPaywallListAction());
+                        },
+                        isDefaultAction: true,
+                        child: const Text(
+                          'Refresh',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: GradientText.primary(
-                        'Get\nPremium',
-                        style: AppText.text16.copyWith(
-                          fontSize: 60,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: GradientText.primary(
+                            state.paywalls.last.title,
+                            style: AppText.text16.copyWith(
+                              fontSize: 60,
+                              height: 1.2,
+                            ),
+                          ),
+                        ),
+                        const CloseButton2(),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Opacity(
+                      opacity: .5,
+                      child: Text(
+                        state.paywalls.last.subtitle,
+                        style: AppText.text1.copyWith(
+                          color: AppColors.white,
                           height: 1.2,
                         ),
                       ),
                     ),
-                    const CloseButton2(),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Opacity(
-                  opacity: .5,
-                  child: Text(
-                    'Get more features with\nPremium experience!',
-                    style: AppText.text1.copyWith(
-                      color: AppColors.white,
-                      height: 1.2,
+                    const SizedBox(height: 24),
+                    for (int i = 0; i < state.paywalls.last.benefits.length; i++) ...[
+                      _Prem(
+                        title: state.paywalls.last.benefits.first,
+                        icon: i >= 4 ? _icons.last : _icons[i],
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    const SizedBox(height: 16),
+                    const _Price(),
+                    const Spacer(),
+                    BottomOnboarding(
+                      buttonText: 'Try Free & Subscribe',
+                      onTapButton: () {},
                     ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                const _Prem(
-                  title: 'Unlimited scanning',
-                  icon: AppIcons.fireSmall,
-                ),
-                const SizedBox(height: 8),
-                const _Prem(
-                  title: 'No adds',
-                  icon: AppIcons.noAdd,
-                ),
-                const SizedBox(height: 8),
-                const _Prem(
-                  title: 'Generating QR codes',
-                  icon: AppIcons.crow,
-                ),
-                const SizedBox(height: 8),
-                const _Prem(
-                  title: 'Unlimited custom',
-                  icon: AppIcons.gift,
-                ),
-                const SizedBox(height: 16),
-                const _Price(),
-                const Spacer(),
-                BottomOnboarding(
-                  buttonText: 'Try Free & Subscribe',
-                  onTapButton: () {},
-                ),
-              ],
+                  ],
+                );
+              },
             ),
           ),
         ),

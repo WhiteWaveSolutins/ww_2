@@ -34,6 +34,7 @@ class AppIcons {
   static const gift = 'assets/icons/gift.svg';
   static const noAdd = 'assets/icons/no-add.svg';
   static const playstation = 'assets/icons/playstation.svg';
+  static const information = 'assets/icons/information-variant-circle.svg';
   static const version = 'assets/icons/version.svg';
   static const stars = 'assets/icons/stars.svg';
   static const frame = 'assets/icons/frame.svg';

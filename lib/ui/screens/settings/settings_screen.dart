@@ -1,16 +1,17 @@
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:gaimon/gaimon.dart';
 import 'package:in_app_review/in_app_review.dart';
-import 'package:ww_2/data/api/links.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/domain/services/email_service.dart';
-import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/images.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/state.dart';
 import 'package:ww_2/ui/widgets/buttons/left_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
 import 'package:ww_2/ui/widgets/svg_icon.dart';
@@ -35,39 +36,43 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          if (!offSubscribe) ...[
-            Container(
-              padding: const EdgeInsets.only(right: 26),
-              decoration: BoxDecoration(
-                color: const Color(0xFF272727),
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.primary,
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Image.asset(AppImages.pict),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GradientText.primary(
-                          'Want more options?',
-                          style: AppText.text16,
-                        ),
-                        const SizedBox(height: 16),
-                        const _ButtonSign(),
-                      ],
+          StoreConnector<AppState, SubscriptionState>(
+            converter: (store) => store.state.subscriptionState,
+            builder: (context, state) {
+              if (state.hasPremium) return const SizedBox();
+              return Container(
+                padding: const EdgeInsets.only(right: 26),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF272727),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.primary,
+                      blurRadius: 10,
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(AppImages.pict),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GradientText.primary(
+                            'Want more options?',
+                            style: AppText.text16,
+                          ),
+                          const SizedBox(height: 16),
+                          const _ButtonSign(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 24),
           _Box(
             title: 'Feedback and support',
@@ -100,14 +105,18 @@ class SettingsScreen extends StatelessWidget {
           _Box(
             title: 'About the program',
             buttons: [
-              //const _Button(
-              //  icon: AppIcons.playstation,
-              //  title: 'About us',
-              //),
+              _Button(
+                icon: AppIcons.information,
+                title: 'About us',
+                onTap: () => launchUrl(
+                  Uri.parse(getItService.remoteConfigService.aboutUsLink),
+                  mode: LaunchMode.inAppWebView,
+                ),
+              ),
               _Button(
                 onTap: () => launchUrl(
-                  Uri.parse(AppLinks.terms),
-                  mode: LaunchMode.inAppWebView, 
+                  Uri.parse(getItService.remoteConfigService.termsLink),
+                  mode: LaunchMode.inAppWebView,
                 ),
                 padding: 3,
                 icon: AppIcons.pr,
@@ -115,8 +124,8 @@ class SettingsScreen extends StatelessWidget {
               ),
               _Button(
                 onTap: () => launchUrl(
-                  Uri.parse(AppLinks.privacy),
-                  mode: LaunchMode.inAppWebView, 
+                  Uri.parse(getItService.remoteConfigService.privacyLink),
+                  mode: LaunchMode.inAppWebView,
                 ),
                 icon: AppIcons.doc,
                 title: 'Privacy Policy',
@@ -148,7 +157,10 @@ class _Button extends StatelessWidget {
     return CupertinoButton(
       padding: EdgeInsets.zero,
       minSize: 1,
-      onPressed: onTap,
+      onPressed:() {
+        Gaimon.selection();
+        onTap?.call();
+      },
       child: Container(
         color: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 8),

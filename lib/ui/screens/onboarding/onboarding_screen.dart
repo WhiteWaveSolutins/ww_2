@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
-import 'package:ww_2/main.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/images.dart';
 import 'package:ww_2/ui/resurses/text.dart';
 import 'package:ww_2/ui/screens/onboarding/widgets/onboarding_widget.dart';
+import 'package:ww_2/ui/state_manager/paywall/action.dart';
+import 'package:ww_2/ui/state_manager/paywall/state.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -42,27 +46,58 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         title: 'Generation of own Qr codes',
                         subtitle: 'Create your own Qr codes and customize them',
-                        onTapButton: () {
-                          if (offSubscribe) {
-                            getItService.navigatorService.onMain();
-                            return;
-                          }
-                          setState(() => page = 3);
-                        },
+                        onTapButton: () => setState(() => page = 3),
                       )
-                    : OnboardingWidget(
-                        image: Image.asset(
-                          AppImages.onboarding4,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                        title: 'Get Premium',
-                        subtitle: 'Start your 3-day free trial. Than 4.99\$ per week',
-                        subtitleTapper: 'Or proceed with limited version',
-                        buttonText: 'Try Free & Subscribe',
-                        onTapButton: () {
-                          getItService.navigatorService.onMain();
-                          getItService.navigatorService.onGetPremium();
+                    : StoreConnector<AppState, PaywallListState>(
+                        converter: (store) => store.state.paywallListState,
+                        builder: (context, state) {
+                          if (state.isLoading) {
+                            return const Center(
+                              child: CupertinoActivityIndicator(
+                                color: Colors.white,
+                                radius: 20,
+                              ),
+                            );
+                          }
+                          if (state.isError || state.paywalls.isEmpty) {
+                            return CupertinoAlertDialog(
+                              title: const Text("Some Error"),
+                              content: Text(
+                                state.isError ? state.errorMessage : 'Paywalls list is empty',
+                              ),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  onPressed: () {
+                                    final store = StoreProvider.of<AppState>(
+                                      context,
+                                      listen: false,
+                                    );
+                                    store.dispatch(LoadPaywallListAction());
+                                  },
+                                  isDefaultAction: true,
+                                  child: const Text(
+                                    'Refresh',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                          return OnboardingWidget(
+                            image: Image.asset(
+                              AppImages.onboarding4,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                            title: state.paywalls.first.title,
+                            subtitle: 'Start your 3-day free trial.\nThan 4.99\$ per week',
+                            subtitleTapper: 'Or proceed with limited version',
+                            buttonText: state.paywalls.first.buttonLabel,
+                            onTapButton: () {
+                              getItService.navigatorService.onMain();
+                              getItService.navigatorService.onGetPremium();
+                            },
+                          );
                         },
                       ),
       ),

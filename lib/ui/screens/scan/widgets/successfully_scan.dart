@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mobile_scanner/mobile_scanner.dart' as ms;
 import 'package:ww_2/data/models/local_barcode/local_barcode.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
 import 'package:ww_2/ui/resurses/icons.dart';
 import 'package:ww_2/ui/resurses/text.dart';
+import 'package:ww_2/ui/state_manager/store.dart';
+import 'package:ww_2/ui/state_manager/subscription/state.dart';
 import 'package:ww_2/ui/widgets/app_barcode.dart';
 import 'package:ww_2/ui/widgets/buttons/simple_button.dart';
 import 'package:ww_2/ui/widgets/gradient_text.dart';
@@ -83,17 +86,26 @@ class SuccessfullyScan extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            SimpleButton(
-              onTap: () async {
-                final url = Uri.parse(barcode.barcodes.firstOrNull?.displayValue ?? '');
-                await launchUrl(
-                  url,
-                  mode: LaunchMode.externalApplication,
+            StoreConnector<AppState, SubscriptionState>(
+              converter: (store) => store.state.subscriptionState,
+              builder: (context, state) {
+                return SimpleButton(
+                  onTap: () async {
+                    if (!state.hasPremium) {
+                      getItService.navigatorService.onGetPremium();
+                      return;
+                    }
+                    final url = Uri.parse(barcode.barcodes.firstOrNull?.displayValue ?? '');
+                    await launchUrl(
+                      url,
+                      mode: LaunchMode.externalApplication,
+                    );
+                  },
+                  title: 'Open in browser',
+                  icon: AppIcons.globe,
+                  centerTitle: true,
                 );
               },
-              title: 'Open in browser',
-              icon: AppIcons.globe,
-              centerTitle: true,
             ),
             const SizedBox(height: 16),
             Row(

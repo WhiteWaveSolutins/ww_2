@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:oktoast/oktoast.dart';
@@ -11,8 +12,6 @@ import 'package:ww_2/ui/state_manager/store.dart';
 import 'package:talker/talker.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-bool offSubscribe = true;
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -21,9 +20,10 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() {
+void main() async {
   final bindings = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: bindings);
+  await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   final locator = LocatorService();
 
@@ -38,7 +38,45 @@ void main() {
     );
   };
 
-  runApp(QrCodeScannerReaderScan(locator: locator));
+  runApp(FApp(locator: locator));
+}
+
+class FApp extends StatelessWidget {
+  final LocatorService locator;
+  final _initialization = Firebase.initializeApp();
+
+  FApp({
+    super.key,
+    required this.locator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
+              ),
+            ),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return QrCodeScannerReaderScan(locator: locator);
+        }
+        return const MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class QrCodeScannerReaderScan extends StatelessWidget {

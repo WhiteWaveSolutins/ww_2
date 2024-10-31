@@ -101,7 +101,7 @@ class _PickCountryModalState extends State<PickCountryModal> {
                 const Center(
                   child: CupertinoActivityIndicator(
                     radius: 20,
-                    color: AppColors.primary,
+                    color: AppColors.white,
                   ),
                 )
               else if (countries.isEmpty)

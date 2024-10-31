@@ -49,16 +49,17 @@ class _CreatedScreenState extends State<CreatedScreen> {
         builder: (context, state) {
           if (state.isLoading) {
             return const Center(
-                child: CupertinoActivityIndicator(
-              radius: 20,
-            ));
+              child: CupertinoActivityIndicator(
+                color: Colors.white,
+                radius: 20,
+              ),
+            );
           }
           if (state.isError) return Center(child: Text(state.errorMessage));
           var showCodes = state.codes.toList();
           if (controller.text.isNotEmpty) {
             showCodes = showCodes
-                .where(
-                    (e) => e.data.toDataForDataBase().contains(controller.text))
+                .where((e) => e.data.toDataForDataBase().contains(controller.text))
                 .toList();
           }
           return ListView(
@@ -100,8 +101,7 @@ class _CreatedScreenState extends State<CreatedScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: DeleteDismissible(
-                        onDelete: () =>
-                            getItService.qrCodeUseCase.deleteSave(code),
+                        onDelete: () => getItService.qrCodeUseCase.deleteSave(code),
                         child: CreatedCodeCard(qr: code),
                       ),
                     ),

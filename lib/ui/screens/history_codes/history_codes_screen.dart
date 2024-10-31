@@ -88,9 +88,12 @@ class _HistoryCodesScreenState extends State<HistoryCodesScreen> {
         converter: (store) => store.state.historyCodeListState,
         builder: (context, state) {
           if (state.isLoading) {
-            return const Center(child: CupertinoActivityIndicator(
-                    radius: 20,)
-                   );
+            return const Center(
+              child: CupertinoActivityIndicator(
+                radius: 20,
+                color: Colors.white,
+              ),
+            );
           }
           if (state.isError) return Center(child: Text(state.errorMessage));
           if (state.codes.isEmpty) return const Center(child: SavedCodesScan());

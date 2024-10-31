@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ww_2/data/models/qr_code/data_qr_code.dart';
+import 'package:ww_2/data/services/shared_preferences_service.dart';
 import 'package:ww_2/domain/di/get_it_services.dart';
 import 'package:ww_2/domain/enums/type_generate.dart';
 import 'package:ww_2/ui/resurses/colors.dart';
@@ -93,16 +95,37 @@ class _GenerateDescriptionScreenState extends State<GenerateDescriptionScreen>
     super.dispose();
   }
 
-  void generate() {
-    final data = DataQrCode(
-      type: widget.type,
-      phone: phoneController.text,
-      name: nameController.text,
-      safety: controller.index,
-      text: textController.text,
-      password: passwordController.text,
-    );
-    getItService.navigatorService.onGenerateResult(data: data);
+  void generate() async {
+    final count = await SharedPreferencesService.getCountGeneration();
+    if (count >= 3) {
+      showDialog(
+        context: context,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Attention!"),
+          content: const Text('You are out of generation'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: Navigator.of(context).pop,
+              isDefaultAction: true,
+              child: const Text(
+                "Ok",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      final data = DataQrCode(
+        type: widget.type,
+        phone: phoneController.text,
+        name: nameController.text,
+        safety: controller.index,
+        text: textController.text,
+        password: passwordController.text,
+      );
+      getItService.navigatorService.onGenerateResult(data: data);
+    }
   }
 
   @override
