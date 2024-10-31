@@ -105,17 +105,17 @@ class SettingsScreen extends StatelessWidget {
           _Box(
             title: 'About the program',
             buttons: [
+              //_Button(
+              //  icon: AppIcons.information,
+              //  title: 'About us',
+              //  onTap: () => launchUrl(
+              //    Uri.parse(getItService.configService.aboutUsLink),
+              //    mode: LaunchMode.inAppWebView,
+              //  ),
+              //),
               _Button(
-                icon: AppIcons.information,
-                title: 'About us',
                 onTap: () => launchUrl(
-                  Uri.parse(getItService.remoteConfigService.aboutUsLink),
-                  mode: LaunchMode.inAppWebView,
-                ),
-              ),
-              _Button(
-                onTap: () => launchUrl(
-                  Uri.parse(getItService.remoteConfigService.termsLink),
+                  Uri.parse(getItService.configService.termsLink),
                   mode: LaunchMode.inAppWebView,
                 ),
                 padding: 3,
@@ -124,7 +124,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               _Button(
                 onTap: () => launchUrl(
-                  Uri.parse(getItService.remoteConfigService.privacyLink),
+                  Uri.parse(getItService.configService.privacyLink),
                   mode: LaunchMode.inAppWebView,
                 ),
                 icon: AppIcons.doc,

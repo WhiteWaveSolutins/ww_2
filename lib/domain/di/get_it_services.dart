@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:ww_2/data/services/remote_config_service.dart';
+import 'package:ww_2/data/services/config_service.dart';
 import 'package:ww_2/domain/services/navigator_service.dart';
 import 'package:ww_2/domain/use_cases/local_code_use_case.dart';
 import 'package:ww_2/domain/use_cases/qr_code_use_case.dart';
@@ -11,7 +11,7 @@ class GetItServices {
 
   QrCodeUseCase get qrCodeUseCase => GetIt.I.get<QrCodeUseCase>();
 
-  RemoteConfigService get remoteConfigService => GetIt.I.get<RemoteConfigService>();
+  ConfigService get configService => GetIt.I.get<ConfigService>();
 }
 
 final getItService = GetItServices();

@@ -7,10 +7,6 @@ class ConfigService {
 
   late final FlagsmithClient _flagsmithClient;
 
-  ConfigService._();
-
-  static final instance = ConfigService._();
-
   late final String _apphudKey;
 
   late final String _privacyLink;
@@ -25,9 +21,9 @@ class ConfigService {
     );
     await _flagsmithClient.getFeatureFlags(reload: true);
 
-    final config = jsonDecode(
-        await _flagsmithClient.getFeatureFlagValue(ConfigKey.config.name) ??
-            '') as Map<String, dynamic>;
+    final config =
+        jsonDecode(await _flagsmithClient.getFeatureFlagValue(ConfigKey.config.name) ?? '')
+            as Map<String, dynamic>;
 
     _apphudKey = config[ConfigKey.apphudKey.name] as String;
     _privacyLink = config[ConfigKey.privacyLink.name] as String;
@@ -40,6 +36,7 @@ class ConfigService {
   String get apphudKey => _apphudKey;
 
   String get privacyLink => _privacyLink;
+
   String get termsLink => _termsLink;
 }
 

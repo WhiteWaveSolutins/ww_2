@@ -130,7 +130,7 @@ class BottomOnboarding extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 minSize: 1,
                 onPressed: () => launchUrl(
-                  Uri.parse(getItService.remoteConfigService.termsLink),
+                  Uri.parse(getItService.configService.termsLink),
                   mode: LaunchMode.inAppWebView,
                 ),
                 child: GradientText.primary(
@@ -142,7 +142,7 @@ class BottomOnboarding extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 minSize: 1,
                 onPressed: () => launchUrl(
-                  Uri.parse(getItService.remoteConfigService.privacyLink),
+                  Uri.parse(getItService.configService.privacyLink),
                   mode: LaunchMode.inAppWebView,
                 ),
                 child: GradientText.primary(
