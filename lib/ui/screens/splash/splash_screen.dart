@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!status) SharedPreferencesService.switchStatusShowOnboarding();
     Navigator.of(context).pushAndRemoveUntil(
       PageRouteBuilder(
-        pageBuilder: (_, __, ___) => !status ? const MainScreen() : const OnboardingScreen(),
+        pageBuilder: (_, __, ___) => status ? const MainScreen() : const OnboardingScreen(),
       ),
       (Route<dynamic> route) => false,
     );
